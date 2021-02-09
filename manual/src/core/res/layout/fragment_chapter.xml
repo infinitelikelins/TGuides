@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/navigation_cover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/navi"
+        android:descendantFocusability="afterDescendants"
+        android:focusable="false">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/book_name"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:focusable="false"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="#613413"
+            android:textStyle="bold"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintWidth_percent="0.28"
+            tools:text="模块指令编程上" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/unit_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipChildren="true"
+            android:clipToPadding="false"
+            android:focusable="true"
+            android:overScrollMode="never"
+            android:padding="@dimen/dp16"
+            android:scrollbars="none"
+            app:fastScrollEnabled="false"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.82"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="1"
+            app:spanCount="3"
+            tools:listitem="@layout/item_chapter" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

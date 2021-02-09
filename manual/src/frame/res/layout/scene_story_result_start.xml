@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="propCount"
+            type="android.text.SpannableString" />
+
+        <variable
+            name="pathCount"
+            type="android.text.SpannableString" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/popup_result_success_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:background="@drawable/card_controller_bg">
+
+        <View
+            android:id="@+id/background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorMasking"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ic_light"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:padding="@dimen/dp16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.4"
+            app:srcCompat="@drawable/ic_light" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/fairy_result_border"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.45"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@id/ic_light"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            app:layout_constraintWidth_percent="0.4"
+            app:srcCompat="@drawable/fairy_result_border" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/path_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:drawablePadding="@dimen/dp16"
+            android:gravity="center"
+            android:text="@{pathCount}"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:autoSizeTextType="uniform"
+            app:drawableStartCompat="@drawable/path_icon"
+            app:layout_constraintBottom_toTopOf="@+id/prop_text"
+            app:layout_constraintEnd_toEndOf="@id/fairy_result_border"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@id/fairy_result_border"
+            app:layout_constraintTop_toTopOf="@id/fairy_result_border"
+            app:layout_constraintWidth_percent="0.3"
+            tools:text="路径指令：10" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/prop_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:drawablePadding="@dimen/dp16"
+            android:gravity="center"
+            android:text="@{propCount}"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:autoSizeTextType="uniform"
+            app:drawableStartCompat="@drawable/prop_icon"
+            app:layout_constraintBottom_toBottomOf="@id/fairy_result_border"
+            app:layout_constraintEnd_toEndOf="@id/fairy_result_border"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintStart_toStartOf="@id/fairy_result_border"
+            app:layout_constraintTop_toBottomOf="@id/path_text"
+            app:layout_constraintWidth_percent="0.3"
+            tools:text="道具指令：10" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,0 +1,322 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
+}
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion = '29.0.3'
+
+    def currentVersionCode = getVersionCode()
+
+    defaultConfig {
+        applicationId "com.bearya.manual"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode currentVersionCode
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary true
+        ndk {
+            abiFilters 'armeabi-v7a', 'armeabi-v8a'
+        }
+        ndkVersion "21.3.6528147"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation"  : "$projectDir/schemas".toString(),
+                             "room.expandProjection": "true"]
+            }
+        }
+        buildFeatures {
+            dataBinding true
+        }
+    }
+
+    flavorDimensions "default"
+    
+    aaptOptions {
+        noCompress "webp"  //表示不让aapt压缩的文件后缀
+    }
+
+    sourceSets {
+
+        main {
+            java {
+                srcDirs = ['src/main/java']
+            }
+            res {
+                srcDirs = ['src/main/res']
+            }
+            assets {
+                srcDirs = ['src/main/assets']
+            }
+        }
+
+        // 民办园课件版本ACE
+        core {
+            java {
+                srcDirs = ['src/frame/java', 'src/core/java']
+            }
+            res {
+                srcDirs = ['src/frame/res', 'src/core/res']
+            }
+            assets {
+                srcDirs = ['src/frame/assets', 'src/core/assets']
+            }
+        }
+
+        // 公办园课件版本
+        publicly {
+            java {
+                srcDirs = ['src/frame/java', 'src/publicly/java']
+            }
+            res {
+                srcDirs = ['src/frame/res', 'src/publicly/res']
+            }
+            assets {
+                srcDirs = ['src/frame/assets', 'src/publicly/assets']
+            }
+        }
+
+        // 贝芽暑期课版本
+        summer {
+            java {
+                srcDirs = ['src/summer/java', 'src/frame/java']
+            }
+            res {
+                srcDirs = ['src/summer/res', 'src/frame/res']
+            }
+            assets {
+                srcDirs = ['src/summer/assets', 'src/frame/assets']
+            }
+        }
+
+        // 幼小衔接课版本
+        connect {
+            java {
+                srcDirs = ['src/connect/java', 'src/frame/java']
+            }
+            res {
+                srcDirs = ['src/connect/res', 'src/frame/res']
+            }
+            assets {
+                srcDirs = ['src/connect/assets', 'src/frame/assets']
+            }
+        }
+
+        // 民办园课件版本BD
+        world {
+            java {
+                srcDirs = ['src/frame/java', 'src/core/java']
+            }
+            res {
+                srcDirs = ['src/frame/res', 'src/core/res']
+            }
+            assets {
+                srcDirs = ['src/frame/assets', 'src/world/assets']
+            }
+        }
+
+    }
+
+    productFlavors {
+
+        // 民办园课件版本 ACE
+        core {
+            versionName "2.3.0"
+            manifestPlaceholders = [appName: "贝芽新天地"]
+            sourceSets.main.manifest.srcFile '/src/core/AndroidManifest.xml'
+            buildConfigField "int", "APP_TYPE", "10"
+            buildConfigField "String", "APP_DOWNLOAD_NAME", "\"manual.apk\""
+            dimension "default"
+        }
+
+        // 民办园课件版本 BD
+        world {
+            versionName "2.3.2"
+            applicationIdSuffix ".world"
+            manifestPlaceholders = [appName: "贝芽环球游"]
+            sourceSets.main.manifest.srcFile '/src/world/AndroidManifest.xml'
+            buildConfigField "int", "APP_TYPE", "24"
+            buildConfigField "String", "APP_DOWNLOAD_NAME", "\"world.apk\""
+            dimension "default"
+        }
+
+        // 公办园课件版本
+        publicly {
+            versionName "2.3.1"
+            applicationIdSuffix ".publicly"
+            manifestPlaceholders = [appName: "贝芽小能手"]
+            sourceSets.main.manifest.srcFile '/src/publicly/AndroidManifest.xml'
+            buildConfigField "int", "APP_TYPE", "17"
+            buildConfigField "String", "APP_DOWNLOAD_NAME", "\"publicly.apk\""
+            dimension "default"
+        }
+
+        // 贝芽暑期课版本
+        summer {
+            versionName "2.3.0"
+            applicationIdSuffix ".summer"
+            manifestPlaceholders = [appName: "贝芽暑期课"]
+            sourceSets.main.manifest.srcFile '/src/summer/AndroidManifest.xml'
+            buildConfigField "int", "APP_TYPE", "13"
+            buildConfigField "String", "APP_DOWNLOAD_NAME", "\"summer.apk\""
+            dimension "default"
+        }
+
+        // 幼小衔接课版本
+        connect {
+            versionName "2.3.0"
+            applicationIdSuffix ".connect"
+            manifestPlaceholders = [appName: "贝芽衔接课"]
+            sourceSets.main.manifest.srcFile '/src/connect/AndroidManifest.xml'
+            buildConfigField "int", "APP_TYPE", "14"
+            buildConfigField "String", "APP_DOWNLOAD_NAME", "\"connect.apk\""
+            dimension "default"
+        }
+
+    }
+
+    signingConfigs {
+        config {
+            keyAlias 'BeiYa'
+            storePassword 'BeiYa123'
+            storeFile file('../bearya_keystore.jks')
+            keyPassword 'BeiYa!@#'
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            buildConfigField "String", "BuglyAppKey", BUGLY_APP_KEY
+            buildConfigField "String", "ApiUrl", BASE_URL
+            signingConfig signingConfigs.config
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            debuggable true
+            minifyEnabled false
+            buildConfigField "String", "BuglyAppKey", BUGLY_APP_KEY
+            buildConfigField "String", "ApiUrl", BASE_URL
+            signingConfig signingConfigs.config
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            if ("release" == buildType.name)
+                output.outputFileName =
+                        "${variant.productFlavors[0].name}_${defaultConfig.versionCode}_v${variant.productFlavors[0].versionName}_release.apk"
+            else
+                output.outputFileName =
+                        "${variant.productFlavors[0].name}_v${variant.productFlavors[0].versionName}.apk"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = 1.8
+        freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
+    }
+
+}
+
+// 获取版本号
+def getVersionCode() {
+    def versionFile = file('version.properties')// 读取第一步新建的文件
+    if (versionFile.canRead()) {// 判断文件读取异常
+        Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionFile))
+        def versionCode = versionProps['VERSION_CODE'].toInteger()// 读取文件里面的版本号
+        versionProps['VERSION_CODE'] = (++versionCode).toString()
+        versionProps.store(versionFile.newWriter(), null)
+        return versionCode // 返回自增之后的版本号
+    } else {
+        throw new Exception("Could not find version.properties!")
+    }
+}
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
+
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.leanback:leanback:1.0.0'
+    implementation 'androidx.core:core-ktx:1.5.0-alpha05'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
+    implementation 'androidx.vectordrawable:vectordrawable-animated:1.1.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0-beta01'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.media:media:1.2.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.2'
+    implementation 'androidx.room:room-runtime:2.3.0-alpha04'
+    implementation 'androidx.room:room-ktx:2.3.0-alpha04'
+    implementation 'androidx.paging:paging-runtime-ktx:3.0.0-alpha12'
+
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.0-rc01'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-rc01'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-rc01'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0-rc01'
+    implementation 'androidx.lifecycle:lifecycle-reactivestreams-ktx:2.3.0-rc01'
+    implementation 'androidx.lifecycle:lifecycle-service:2.3.0-rc01'
+    implementation 'androidx.lifecycle:lifecycle-process:2.3.0-rc01'
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.3.0-rc01'
+
+    implementation 'androidx.work:work-runtime-ktx:2.4.0'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'androidx.startup:startup-runtime:1.0.0'
+    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
+    implementation 'androidx.concurrent:concurrent-futures-ktx:1.1.0'
+    implementation 'androidx.security:security-crypto:1.1.0-alpha03'
+
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.android.material:material:1.3.0-beta01'
+
+    implementation 'com.tencent.bugly:crashreport:3.3.3'
+    implementation 'com.tencent:mmkv-static:1.2.7'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
+
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    implementation 'com.github.SheHuan:NiceImageView:1.0.5'
+    implementation 'com.github.bumptech.glide:okhttp3-integration:4.11.0'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.6'
+    implementation 'com.github.GrenderG:Toasty:1.5.0'
+    implementation 'com.github.tibolte:elasticdownload:1.0.4'
+    implementation 'com.github.razerdp:BasePopup:2.2.11'
+    implementation 'com.airbnb.android:lottie:3.6.0'
+
+    implementation 'org.greenrobot:eventbus:3.2.0'
+    implementation 'com.orhanobut:logger:2.2.0'
+
+    implementation 'jp.wasabeef:glide-transformations:4.0.1'
+    implementation 'com.liulishuo.filedownloader:library:1.7.7'
+    implementation 'com.tapadoo.android:alerter:6.2.1'
+    implementation 'com.dyhdyh.io:asset-file:1.0.2'
+    implementation 'com.kaopiz:kprogresshud:1.2.0'
+
+    kapt 'com.github.bumptech.glide:compiler:4.11.0'
+    kapt 'androidx.annotation:annotation:1.1.0'
+    kapt 'androidx.room:room-compiler:2.3.0-alpha04'
+    kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
+
+}

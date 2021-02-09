@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="cover"
+            type="String" />
+
+        <variable
+            name="lock"
+            type="boolean" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/dp16"
+        android:layout_marginTop="@dimen/dp12"
+        android:layout_marginEnd="@dimen/dp16"
+        android:layout_marginBottom="@dimen/dp4"
+        android:focusable="true">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/book"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:load="@{cover}"
+            tools:scaleType="fitCenter"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/book_lock"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="@{lock?View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/book"
+            app:layout_constraintEnd_toEndOf="@id/book"
+            app:layout_constraintStart_toStartOf="@id/book"
+            app:layout_constraintTop_toTopOf="@id/book"
+            app:srcCompat="@drawable/ic_lock_white_24dp"
+            tools:visibility="gone"
+            tools:scaleType="center" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="bluetoothName"
+            type="String" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bookshelf">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/book_recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipChildren="true"
+            android:clipToPadding="false"
+            android:focusable="true"
+            android:overScrollMode="never"
+            android:padding="@dimen/dp16"
+            android:scrollbars="none"
+            app:focusOutEnd="true"
+            app:focusOutFront="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.65"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.55"
+            app:layout_constraintWidth_percent="1"
+            tools:itemCount="5"
+            tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/item_book"
+            tools:spanCount="5" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/navigation_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/dp24"
+            android:focusable="true"
+            android:gravity="center"
+            android:lines="1"
+            android:maxLines="1"
+            android:nextFocusDown="@id/book_recycler_view"
+            android:paddingStart="@dimen/dp16"
+            android:paddingTop="@dimen/dp12"
+            android:paddingEnd="@dimen/dp16"
+            android:text="@string/settings"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            app:drawableTopCompat="@drawable/settings_animated"
+            app:focusOutEnd="true"
+            app:focusOutFront="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:scaleX="1.1"
+            tools:scaleY="1.1"
+            tools:text="设置(发现新版本)" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/navigation_animation"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/dp12"
+            android:focusable="false"
+            android:gravity="center"
+            android:nextFocusRight="@id/navigation_settings"
+            android:nextFocusDown="@id/book_recycler_view"
+            android:paddingStart="@dimen/dp16"
+            android:paddingTop="@dimen/dp12"
+            android:paddingEnd="@dimen/dp16"
+            android:text="@{bluetoothName}"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            app:drawableTopCompat="@drawable/bluetooth_state"
+            app:layout_constraintBottom_toBottomOf="@id/navigation_settings"
+            app:layout_constraintEnd_toStartOf="@id/navigation_settings"
+            app:layout_constraintTop_toTopOf="@id/navigation_settings"
+            tools:scaleX="1.1"
+            tools:scaleY="1.1"
+            tools:text="客厅的小米电视" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

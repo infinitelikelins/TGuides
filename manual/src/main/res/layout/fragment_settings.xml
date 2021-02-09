@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="mainViewModel"
+            type="com.bearya.manual.main.MainViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorCommonBackground"
+        android:descendantFocusability="afterDescendants">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/current_version"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/dp16"
+            android:background="@drawable/card_blue"
+            android:gravity="center"
+            android:lines="1"
+            android:maxLines="1"
+            android:nextFocusLeft="@+id/about_us"
+            android:nextFocusRight="@+id/about_us"
+            android:paddingStart="@dimen/dp16"
+            android:paddingTop="@dimen/dp24"
+            android:paddingEnd="@dimen/dp16"
+            android:paddingBottom="@dimen/dp8"
+            android:text="@{`当前版本 `+mainViewModel.currentVersion}"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            app:autoSizeTextType="uniform"
+            app:drawableTopCompat="@drawable/update_bg"
+            app:layout_constraintBottom_toTopOf="@+id/download"
+            app:layout_constraintEnd_toStartOf="@id/connect_us"
+            app:layout_constraintHeight_percent="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_percent="0.35"
+            tools:text="当前版本 1.0.0.12346" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/connect_us"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/dp16"
+            android:layout_marginBottom="@dimen/dp4"
+            android:background="@drawable/card_white"
+            android:drawablePadding="@dimen/dp16"
+            android:gravity="center_vertical"
+            android:lineSpacingExtra="@dimen/dp2"
+            android:maxLines="2"
+            android:nextFocusLeft="@id/current_version"
+            android:nextFocusRight="@id/current_version"
+            android:nextFocusUp="@+id/about_us"
+            android:nextFocusDown="@+id/about_us"
+            android:padding="24dp"
+            android:text="@string/connect_us"
+            android:textColor="@color/colorTextBlue"
+            android:textStyle="bold"
+            app:autoSizeTextType="uniform"
+            app:drawableStartCompat="@drawable/ic_connect_us"
+            app:layout_constraintBottom_toTopOf="@+id/about_us"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/current_version"
+            app:layout_constraintTop_toTopOf="@id/current_version"
+            app:layout_constraintWidth_percent="0.35" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/about_us"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dp4"
+            android:background="@drawable/card_white"
+            android:gravity="center_vertical"
+            android:lineSpacingExtra="@dimen/dp4"
+            android:maxLines="3"
+            android:nextFocusLeft="@id/current_version"
+            android:nextFocusRight="@id/current_version"
+            android:nextFocusUp="@id/connect_us"
+            android:nextFocusDown="@id/connect_us"
+            android:paddingStart="@dimen/dp16"
+            android:paddingEnd="@dimen/dp16"
+            android:text="@string/about_us"
+            android:textColor="@color/colorTextBlue"
+            android:textStyle="bold"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintBottom_toBottomOf="@id/current_version"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@id/connect_us"
+            app:layout_constraintTop_toBottomOf="@id/connect_us"
+            app:layout_constraintWidth_percent="0.35" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/download"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp32"
+            android:background="@drawable/card_white"
+            android:focusable="true"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingStart="@dimen/dp72"
+            android:paddingTop="@dimen/dp8"
+            android:paddingEnd="@dimen/dp64"
+            android:paddingBottom="@dimen/dp8"
+            android:text="@string/have_new_apk"
+            android:textColor="@color/colorTextBlue"
+            android:textSize="@dimen/sp36"
+            android:visibility="@{mainViewModel.hasNewApk?View.VISIBLE:View.GONE}"
+            app:autoSizeTextType="uniform"
+            app:drawableEndCompat="@drawable/ic_download_next"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/about_us"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@id/current_version"
+            app:layout_constraintTop_toBottomOf="@id/current_version"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

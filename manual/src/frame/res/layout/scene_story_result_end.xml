@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <library.widget.FrameSurfaceView
+            android:id="@+id/end_frame"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/popup_result_success_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/colorMasking"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ic_light"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="@dimen/dp16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.4"
+            app:srcCompat="@drawable/ic_light" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/fairy_result_border"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.45"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@id/ic_light"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            app:layout_constraintWidth_percent="0.4"
+            app:srcCompat="@drawable/fairy_result_border" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/path_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:drawablePadding="@dimen/dp16"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            app:autoSizeTextType="uniform"
+            app:drawableStartCompat="@drawable/path_icon"
+            app:layout_constraintBottom_toTopOf="@+id/prop_text"
+            app:layout_constraintEnd_toEndOf="@id/fairy_result_border"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@id/fairy_result_border"
+            app:layout_constraintTop_toTopOf="@id/fairy_result_border"
+            app:layout_constraintWidth_percent="0.3"
+            tools:text="路径指令：1" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/prop_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:drawablePadding="@dimen/dp16"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            app:autoSizeTextType="uniform"
+            app:drawableStartCompat="@drawable/prop_icon"
+            app:layout_constraintBottom_toBottomOf="@id/fairy_result_border"
+            app:layout_constraintEnd_toEndOf="@id/fairy_result_border"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintStart_toStartOf="@id/fairy_result_border"
+            app:layout_constraintTop_toBottomOf="@id/path_text"
+            app:layout_constraintWidth_percent="0.3"
+            tools:text="道具指令：10" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

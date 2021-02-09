@@ -1,0 +1,21 @@
+<resources>
+    <string name="guide_toast">
+        按【左右按键】进行翻页，按【上下键】进行页面滚动，按【菜单键】弹出缩略图，按【返回键】退出课件。
+    </string>
+    <string name="app_update_now">立即更新</string>
+    <string name="app_update_later">稍后更新</string>
+    <string name="connect_us">
+        联系客服\n400&#8211;876&#8211;9931
+    </string>
+    <string name="about_us">
+        贝芽智能(苏州)科技有限公司\n官网：http://www.bearya.com\n邮箱：service@bearya.com
+    </string>
+    <string name="have_new_apk">发现新版本</string>
+    <string name="path_command">路径指令：</string>
+    <string name="prop_command">道具指令：</string>
+    <string name="cast">投屏</string>
+    <string name="enter_licence">请输入授权码</string>
+    <string name="activate">验证</string>
+    <string name="licence_code">授权码激活</string>
+    <string name="settings">设置</string>
+</resources>

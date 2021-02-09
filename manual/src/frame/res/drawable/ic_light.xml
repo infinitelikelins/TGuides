@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:drawable="@drawable/fairy_bottom_bg"
+        android:gravity="bottom" />
+
+    <item
+        android:drawable="@drawable/fairy_body"
+        android:gravity="center_horizontal"
+        android:bottom="80dp"/>
+
+    <item
+        android:drawable="@drawable/fairy_light"
+        android:bottom="70dp"
+        android:gravity="bottom" />
+
+</layer-list>

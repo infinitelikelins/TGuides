@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="bluetoothName"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/navigation_cover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/navi"
+        android:descendantFocusability="afterDescendants"
+        android:focusable="false">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/book_name"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:focusable="false"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="#613413"
+            android:textStyle="bold"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintWidth_percent="0.28"
+            tools:text="模块指令编程上" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/unit_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipChildren="true"
+            android:clipToPadding="false"
+            android:focusable="true"
+            android:overScrollMode="never"
+            android:padding="@dimen/dp16"
+            android:scrollbars="none"
+            app:fastScrollEnabled="false"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.82"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="1"
+            app:spanCount="3"
+            tools:listitem="@layout/item_chapter" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/navigation_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp24"
+            android:drawablePadding="@dimen/dp2"
+            android:focusable="true"
+            android:gravity="center"
+            android:paddingStart="@dimen/dp16"
+            android:paddingEnd="@dimen/dp16"
+            android:text="@string/settings"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            app:drawableTopCompat="@drawable/settings_animated"
+            app:focusOutEnd="true"
+            app:focusOutFront="true"
+            tools:text="@string/settings"
+            android:nextFocusDown="@id/unit_list"
+            android:padding="@dimen/dp8"
+            app:layout_constraintBottom_toTopOf="@id/unit_list"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/navigation_animation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp8"
+            android:drawablePadding="@dimen/dp2"
+            android:focusable="false"
+            android:gravity="center"
+            android:nextFocusRight="@id/navigation_settings"
+            android:nextFocusDown="@id/unit_list"
+            android:padding="@dimen/dp8"
+            android:paddingStart="@dimen/dp4"
+            android:paddingEnd="@dimen/dp4"
+            android:text="@{bluetoothName}"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            app:drawableTopCompat="@drawable/bluetooth_state"
+            app:layout_constraintBottom_toBottomOf="@id/navigation_settings"
+            app:layout_constraintBottom_toTopOf="@id/unit_list"
+            app:layout_constraintEnd_toStartOf="@id/navigation_settings"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="客厅的小米电视" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

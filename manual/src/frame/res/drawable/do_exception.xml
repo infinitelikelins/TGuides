@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/exception_bg" />
+
+    <item
+        android:drawable="@drawable/ico_exception"
+        android:gravity="center" />
+
+    <item
+        android:gravity="top|left"
+        android:drawable="@drawable/eye_anim"
+        android:left="268dp"
+        android:top="72dp" />
+
+    <item
+        android:gravity="top|left"
+        android:drawable="@drawable/eye_anim"
+        android:left="310dp"
+        android:top="62dp" />
+
+</layer-list>

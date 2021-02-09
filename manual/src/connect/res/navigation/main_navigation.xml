@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@+id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.bearya.manual.splash.SplashFragment"
+        tools:layout="@layout/fragment_splash">
+
+        <action
+            android:id="@+id/action_splashFragment_to_chapterFragment"
+            app:destination="@id/chapterFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <activity
+        android:id="@+id/activityFrame"
+        android:name="com.bearya.manual.frame.FrameAppCompatActivity"
+        tools:layout="@layout/activity_frame" />
+
+    <fragment
+        android:id="@+id/chapterFragment"
+        android:name="com.bearya.manual.chapter.ChapterFragment"
+        tools:layout="@layout/fragment_chapter">
+
+        <argument
+            android:name="bookId"
+            android:defaultValue="8"
+            app:argType="integer"
+            app:nullable="false" />
+
+        <argument
+            android:name="bookName"
+            android:defaultValue="幼小衔接编程课"
+            app:argType="string"
+            app:nullable="true" />
+
+        <action
+            android:id="@+id/action_chapterFragment_to_settingsFragment"
+            app:destination="@+id/settingsFragment"
+            app:launchSingleTop="true" />
+
+        <action
+            android:id="@+id/action_chapterFragment_to_updateFragment"
+            app:destination="@id/updateFragment"
+            app:launchSingleTop="true" />
+
+        <action
+            android:id="@+id/action_chapterFragment_to_sectionFragment"
+            app:destination="@id/sectionFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/sectionFragment"
+        android:name="com.bearya.manual.section.SectionFragment"
+        tools:layout="@layout/fragment_section">
+
+        <argument
+            android:name="sectionDirPath"
+            android:defaultValue="寻找指南针"
+            app:argType="string"
+            app:nullable="false" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.bearya.manual.settings.SettingsFragment"
+        tools:layout="@layout/fragment_settings">
+
+        <action
+            android:id="@+id/action_settingsFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/installFragment"
+        android:name="com.bearya.manual.install.InstallFragment"
+        tools:layout="@layout/fragment_install" />
+
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="com.bearya.manual.update.UpdateFragment"
+        tools:layout="@layout/fragment_update">
+
+        <action
+            android:id="@+id/action_updateFragment_to_installFragment"
+            app:destination="@id/installFragment" />
+
+    </fragment>
+
+    <action
+        android:id="@+id/action_to_activityFrame"
+        app:destination="@id/activityFrame"
+        app:launchSingleTop="true" />
+
+</navigation>
