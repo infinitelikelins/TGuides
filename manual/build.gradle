@@ -105,10 +105,10 @@ android {
             }
         }
 
-        // 民办园课件版本BD
+        // 民办园课件版本BDF
         world {
             java {
-                srcDirs = ['src/frame/java', 'src/core/java']
+                srcDirs = ['src/frame/java', 'src/world/java']
             }
             res {
                 srcDirs = ['src/frame/res', 'src/core/res']
@@ -124,19 +124,19 @@ android {
 
         // 民办园课件版本 ACE
         core {
-            versionName "2.3.0"
-            manifestPlaceholders = [appName: "贝芽新天地"]
+            versionName "2.3.3"
+            manifestPlaceholders = [appName: "贝芽幼儿编程教学支持(上)"]
             sourceSets.main.manifest.srcFile '/src/core/AndroidManifest.xml'
             buildConfigField "int", "APP_TYPE", "10"
             buildConfigField "String", "APP_DOWNLOAD_NAME", "\"manual.apk\""
             dimension "default"
         }
 
-        // 民办园课件版本 BD
+        // 民办园课件版本 BDF
         world {
-            versionName "2.3.2"
+            versionName "2.3.3"
             applicationIdSuffix ".world"
-            manifestPlaceholders = [appName: "贝芽环球游"]
+            manifestPlaceholders = [appName: "贝芽幼儿编程教学支持(下)"]
             sourceSets.main.manifest.srcFile '/src/world/AndroidManifest.xml'
             buildConfigField "int", "APP_TYPE", "24"
             buildConfigField "String", "APP_DOWNLOAD_NAME", "\"world.apk\""
@@ -145,9 +145,9 @@ android {
 
         // 公办园课件版本
         publicly {
-            versionName "2.3.1"
+            versionName "2.3.2"
             applicationIdSuffix ".publicly"
-            manifestPlaceholders = [appName: "贝芽小能手"]
+            manifestPlaceholders = [appName: "贝芽幼儿编程"]
             sourceSets.main.manifest.srcFile '/src/publicly/AndroidManifest.xml'
             buildConfigField "int", "APP_TYPE", "17"
             buildConfigField "String", "APP_DOWNLOAD_NAME", "\"publicly.apk\""
@@ -255,7 +255,7 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.leanback:leanback:1.0.0'
-    implementation 'androidx.core:core-ktx:1.5.0-alpha05'
+    implementation 'androidx.core:core-ktx:1.5.0-beta01'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
     implementation 'androidx.vectordrawable:vectordrawable-animated:1.1.0'
@@ -263,30 +263,30 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.2.0-beta01'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.media:media:1.2.1'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.2'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.2'
-    implementation 'androidx.room:room-runtime:2.3.0-alpha04'
-    implementation 'androidx.room:room-ktx:2.3.0-alpha04'
-    implementation 'androidx.paging:paging-runtime-ktx:3.0.0-alpha12'
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    implementation 'androidx.paging:paging-runtime-ktx:3.0.0-beta01'
 
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.0-rc01'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-rc01'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-rc01'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0-rc01'
-    implementation 'androidx.lifecycle:lifecycle-reactivestreams-ktx:2.3.0-rc01'
-    implementation 'androidx.lifecycle:lifecycle-service:2.3.0-rc01'
-    implementation 'androidx.lifecycle:lifecycle-process:2.3.0-rc01'
-    implementation 'androidx.lifecycle:lifecycle-common-java8:2.3.0-rc01'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-service:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-process:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
 
     implementation 'androidx.work:work-runtime-ktx:2.4.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'androidx.startup:startup-runtime:1.0.0'
-    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
+    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
     implementation 'androidx.concurrent:concurrent-futures-ktx:1.1.0'
     implementation 'androidx.security:security-crypto:1.1.0-alpha03'
 
     implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'com.google.android.material:material:1.3.0-beta01'
+    implementation 'com.google.android.material:material:1.3.0'
 
     implementation 'com.tencent.bugly:crashreport:3.3.3'
     implementation 'com.tencent:mmkv-static:1.2.7'
@@ -316,7 +316,7 @@ dependencies {
 
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
     kapt 'androidx.annotation:annotation:1.1.0'
-    kapt 'androidx.room:room-compiler:2.3.0-alpha04'
-    kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
+    kapt "androidx.room:room-compiler:$room_version"
+    kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha03'
 
 }
