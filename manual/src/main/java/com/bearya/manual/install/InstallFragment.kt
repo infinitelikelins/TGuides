@@ -37,9 +37,9 @@ class InstallFragment : Fragment() {
     private var downloadTaskId: Int? = null
     private var downloader: BaseDownloadTask? = null
 
-    private val apkPath by lazy { BuildConfig.APP_DOWNLOAD_NAME.downloadPath(requireContext()) }
+    private val apkPath by lazy { BuildConfig.APP_DOWNLOAD_NAME.downloadPath() }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         bindView = FragmentInstallBinding.inflate(inflater, container, false)
         bindView.lifecycleOwner = viewLifecycleOwner
         return bindView.root
@@ -48,13 +48,13 @@ class InstallFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (File(apkPath).exists()) {
+            Logger.d("应用已下载 $apkPath")
 
             bindView.progress.visibility = View.GONE
             bindView.updateTips.visibility = View.VISIBLE
             bindView.updateTips.text = "应用已下载"
 
-            if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.READ_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && requireContext().packageManager.canRequestPackageInstalls().not()) {
                     ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.REQUEST_INSTALL_PACKAGES), requestRequestInstallPackagesCode)
@@ -67,28 +67,27 @@ class InstallFragment : Fragment() {
             }
 
         } else {
-            mainViewModel.newApkUrl.value?.apply {
-                if (startsWith("http", true)) {
+            mainViewModel.newApkUrl.observe(viewLifecycleOwner) {
+                it?.apply {
+                    if (startsWith("http", true)) {
+                        downloader = FileDownloader.getImpl().create(this).setPath(apkPath, false).setCallbackProgressTimes(100).setMinIntervalUpdateSpeed(100)
 
-                    downloader = FileDownloader.getImpl().create(this)
-                            .setPath(apkPath, false)
-                            .setCallbackProgressTimes(100)
-                            .setMinIntervalUpdateSpeed(100)
+                        downloader?.listener = DownloadListenerImpl().also { downloadListenerImpl ->
+                            downloadListener = downloadListenerImpl
+                        }
 
-                    downloader?.listener = DownloadListenerImpl().also { downloadListener = it }
-
-                    if (ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                            == PackageManager.PERMISSION_GRANTED) {
-                        downloadTaskId = downloader?.start()
+                        if (ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                            downloadTaskId = downloader?.start()
+                        } else {
+                            ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), requestWriteExternalStorageCode)
+                        }
                     } else {
-                        ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), requestWriteExternalStorageCode)
+                        CrashReport.postCatchedException(Exception("应用更新地址错误 : $this"))
+                        bindView.updateTips.visibility = View.VISIBLE
+                        bindView.updateTips.text = "应用更新地址错误"
+                        bindView.progress.startIntro()
+                        bindView.progress.fail()
                     }
-                } else {
-                    CrashReport.postCatchedException(Exception("应用更新地址错误 : $this"))
-                    bindView.updateTips.visibility = View.VISIBLE
-                    bindView.updateTips.text = "应用更新地址错误"
-                    bindView.progress.startIntro()
-                    bindView.progress.fail()
                 }
             }
         }
@@ -119,7 +118,7 @@ class InstallFragment : Fragment() {
                 FileProvider.getUriForFile(requireContext(), "com.bearya.manual.fileprovider", this)
             } else {
                 Uri.fromFile(this)
-            },"application/vnd.android.package-archive")
+            }, "application/vnd.android.package-archive")
             startActivity(intent)
 
         }
@@ -131,22 +130,19 @@ class InstallFragment : Fragment() {
 
         when (requestCode) {
             requestWriteExternalStorageCode -> {
-                if (permissions[0] == android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (permissions[0] == android.Manifest.permission.WRITE_EXTERNAL_STORAGE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     downloadTaskId = downloader?.start()
                 }
             }
 
             requestReadExternalStorageCode -> {
-                if (permissions[0] == android.Manifest.permission.READ_EXTERNAL_STORAGE
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (permissions[0] == android.Manifest.permission.READ_EXTERNAL_STORAGE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     installApk()
                 }
             }
 
             requestRequestInstallPackagesCode -> {
-                if (permissions[0] == android.Manifest.permission.REQUEST_INSTALL_PACKAGES
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (permissions[0] == android.Manifest.permission.REQUEST_INSTALL_PACKAGES && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     installApk()
                 } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     startActivity(Intent(ACTION_MANAGE_UNKNOWN_APP_SOURCES).apply {

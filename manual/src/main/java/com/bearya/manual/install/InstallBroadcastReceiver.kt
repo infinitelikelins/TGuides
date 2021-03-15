@@ -11,14 +11,14 @@ class InstallBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         when (intent?.action) {
-            Intent.ACTION_PACKAGE_REPLACED, Intent.ACTION_PACKAGE_REMOVED -> deleteApk(context)
+            Intent.ACTION_PACKAGE_REPLACED, Intent.ACTION_PACKAGE_REMOVED -> deleteApk()
         }
     }
 
-    private fun deleteApk(context: Context?) {
+    private fun deleteApk() {
         Thread {
-            File(BuildConfig.APP_DOWNLOAD_NAME.downloadPath(context)).takeIf { it.exists() }?.delete()
-            File("manual.apk".downloadPath(context)).takeIf { it.exists() }?.delete()
+            File(BuildConfig.APP_DOWNLOAD_NAME.downloadPath()).takeIf { it.exists() }?.delete()
+            File("manual.apk".downloadPath()).takeIf { it.exists() }?.delete()
         }.start()
     }
 

@@ -124,7 +124,7 @@ android {
 
         // 民办园课件版本 ACE
         core {
-            versionName "2.3.3"
+            versionName "2.3.4"
             manifestPlaceholders = [appName: "贝芽幼儿编程教学支持(上)"]
             sourceSets.main.manifest.srcFile '/src/core/AndroidManifest.xml'
             buildConfigField "int", "APP_TYPE", "10"
@@ -134,7 +134,7 @@ android {
 
         // 民办园课件版本 BDF
         world {
-            versionName "2.3.3"
+            versionName "2.3.4"
             applicationIdSuffix ".world"
             manifestPlaceholders = [appName: "贝芽幼儿编程教学支持(下)"]
             sourceSets.main.manifest.srcFile '/src/world/AndroidManifest.xml'
@@ -145,7 +145,7 @@ android {
 
         // 公办园课件版本
         publicly {
-            versionName "2.3.2"
+            versionName "2.3.4"
             applicationIdSuffix ".publicly"
             manifestPlaceholders = [appName: "贝芽幼儿编程"]
             sourceSets.main.manifest.srcFile '/src/publicly/AndroidManifest.xml'
@@ -260,7 +260,7 @@ dependencies {
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
     implementation 'androidx.vectordrawable:vectordrawable-animated:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.2.0-beta01'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0-beta02'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.media:media:1.2.1'
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
