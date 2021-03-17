@@ -163,10 +163,7 @@ val migrations_8_9 = object : Migration(8, 9) {
 val migrations_9_10 = object : Migration(9, 10) {
 
     override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL("update Book set name=\"畅游中国(上)\", cover=\"book/畅游中国(上).webp\" where name=\"中国之旅上\"")
-        database.execSQL("update Book set name=\"畅游中国(下)\", cover=\"book/畅游中国(下).webp\" where name=\"中国之旅下\"")
-        database.execSQL("update Book set name=\"环游世界(上)\", cover=\"book/环游世界(上).webp\" where name=\"世界之旅上\"")
-        database.execSQL("update Book set name=\"环游世界(下)\", cover=\"book/环游世界(下).webp\" where name=\"世界之旅下\"")
+
     }
 
 }

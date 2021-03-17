@@ -55,8 +55,7 @@ class SectionFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         bindView = FragmentSectionBinding.inflate(inflater, container, false)
-        bindView.lifecycleOwner = viewLifecycleOwner
-        return bindView.root
+        return bindView.apply { lifecycleOwner = viewLifecycleOwner }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -165,8 +164,7 @@ internal class ImageFragment : Fragment(), View.OnKeyListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         bindView = ItemImageBinding.inflate(inflater, container, false)
-        bindView.lifecycleOwner = viewLifecycleOwner
-        return bindView.root
+        return bindView.apply { lifecycleOwner = viewLifecycleOwner }.root
     }
 
     @SuppressLint("ClickableViewAccessibility")

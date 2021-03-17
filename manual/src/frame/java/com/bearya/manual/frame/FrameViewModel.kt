@@ -8,7 +8,7 @@ import library.ext.setData
 
 class FrameViewModel : ViewModel() {
 
-    val receiveCommand: MutableLiveData<String> by lazy {  MutableLiveData<String>() }
+    val receiveCommand: MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
     val scene: LiveData<Fragment?> by lazy {
         MediatorLiveData<Fragment?>().apply {
@@ -90,6 +90,8 @@ class FrameViewModel : ViewModel() {
             CityLoadException5 -> ExceptionScene.build(LoadExceptionFrame5)
             CityLoadException6 -> ExceptionScene.build(LoadExceptionFrame6)
             CityLoadException7 -> ExceptionScene.build(LoadExceptionFrame7)
+            CityFlag -> FlagScene.build(commandParams[2])
+            CityKnown -> KnownScene.build(commandParams[2])
             else -> null
         }
     }

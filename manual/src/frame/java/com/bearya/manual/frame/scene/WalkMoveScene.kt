@@ -29,10 +29,9 @@ class WalkMoveScene : Fragment() {
         data = requireArguments().getSerializable("data") as? LoadFrame?
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         bindView = SceneWalkMoveBinding.inflate(inflater, container, false)
-        bindView.lifecycleOwner = viewLifecycleOwner
-        return bindView.root
+        return bindView.apply { lifecycleOwner = viewLifecycleOwner }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

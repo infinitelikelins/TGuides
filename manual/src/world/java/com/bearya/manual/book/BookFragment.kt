@@ -45,8 +45,7 @@ class BookFragment : Fragment(), View.OnFocusChangeListener, View.OnClickListene
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         bindView = FragmentBookBinding.inflate(inflater, container, false)
-        bindView.lifecycleOwner = viewLifecycleOwner
-        return bindView.root
+        return bindView.apply { lifecycleOwner = viewLifecycleOwner }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -28,10 +28,9 @@ class HelpScene : Fragment() {
         data = requireArguments().getSerializable("data") as? HelpFrame?
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         bindView = SceneHelpBinding.inflate(inflater, container, false)
-        bindView.lifecycleOwner = viewLifecycleOwner
-        return bindView.root
+        return bindView.apply { lifecycleOwner = viewLifecycleOwner }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,7 +40,7 @@ class HelpScene : Fragment() {
         bindView.frameSurface.mGapTime = data?.gapTime
         bindView.frameSurface.mBitmapResourceIds = data?.beginImages
 
-        viewModel.receiveCommand.observe(viewLifecycleOwner){
+        viewModel.receiveCommand.observe(viewLifecycleOwner) {
             handleCommandResult(it)
         }
 
@@ -69,8 +68,7 @@ class HelpScene : Fragment() {
         command?.split(";")?.takeIf { it.size >= 2 && it[0] == "city" }?.also {
             when (it[1]) {
                 CityTimeout -> Music.playAssetsAudio(data?.timeoutMusic)
-                CitySuccess -> Music.playAssetsAudio(it[2].replace("tts", "music"))
-                CityFail -> Music.playAssetsAudio(it[2].replace("tts", "music"))
+                CitySuccess, CityFail -> Music.playAssetsAudio(it[2].replace("tts/zh", "music"))
             }
         }
 

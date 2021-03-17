@@ -46,18 +46,18 @@ object Music {
             try {
                 audios.forEachIndexed { index, audio ->
                     if (audio.isNotEmpty()) {
-                        val mediaPlayer: MediaPlayer? = MediaPlayer().also { mediaPlayers.put(index, it) }
+                        val mediaPlayer: MediaPlayer = MediaPlayer().also { mediaPlayers.put(index, it) }
                         val assetMg = mContext.get()?.assets
                         val fileDescriptor = assetMg?.openFd(audio)
-                        mediaPlayer?.setDataSource(fileDescriptor?.fileDescriptor,
+                        mediaPlayer.setDataSource(fileDescriptor?.fileDescriptor,
                                 fileDescriptor?.startOffset ?: 0, fileDescriptor?.length ?: 0)
-                        mediaPlayer?.prepareAsync()
+                        mediaPlayer.prepareAsync()
                         if (index == 0) {
-                            mediaPlayer?.setOnPreparedListener {
+                            mediaPlayer.setOnPreparedListener {
                                 it.start()
                             }
                         }
-                        mediaPlayer?.setOnCompletionListener {
+                        mediaPlayer.setOnCompletionListener {
                             if (index == audios.size - 1) {
                                 listener?.invoke()
                             } else {

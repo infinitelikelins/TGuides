@@ -26,10 +26,9 @@ class StateScene : Fragment() {
         data = requireArguments().get("data") as? StateFrame?
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         bindView = SceneStateBinding.inflate(inflater, container, false)
-        bindView.lifecycleOwner = viewLifecycleOwner
-        return bindView.root
+        return bindView.apply { lifecycleOwner = viewLifecycleOwner }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

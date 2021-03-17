@@ -184,3 +184,7 @@ const val CityLoadException6: String = "10096"
 const val CityLoadException7: String = "10097"
 
 const val CityGo: String = "10098"
+
+const val CityFlag: String = "10100"
+
+const val CityKnown:String = "10101"
