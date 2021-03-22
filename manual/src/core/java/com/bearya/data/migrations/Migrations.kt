@@ -167,3 +167,11 @@ val migrations_9_10 = object : Migration(9, 10) {
     }
 
 }
+
+val migrations_10_11 = object : Migration(10, 11) {
+
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(51,'规定步数的距离',6,1)")
+    }
+
+}
