@@ -152,13 +152,13 @@ class SummaryScene : Fragment() {
         }
 
         flagCount.takeIf { it > 0 }?.let {
-            "music/flag_$this.mp3"
+            "music/flag_$flagCount.mp3"
         }?.apply {
             audios.add(this)
         }
 
         knownCount.takeIf { it > 0 }?.let {
-            "music/known_$this.mp3"
+            "music/known_$knownCount.mp3"
         }?.apply {
             audios.add(this)
         }
@@ -166,14 +166,14 @@ class SummaryScene : Fragment() {
         Music.playAssetsAudios(audios)
     }
 
-    private fun invokeParams(goldCount: String? = "0", stepCount: String? = "0", doneCount: String? = "0",
-                             stationCount: String? = "0", flagCount:String? = "0", knownCount:String? = "0") {
-        this.goldCount = goldCount?.toIntOrNull() ?: 0
-        this.stepCount = stepCount?.toIntOrNull() ?: 0
-        this.doneCount = doneCount?.toIntOrNull() ?: 0
-        this.stationCount = stationCount?.toIntOrNull() ?: 0
-        this.flagCount = flagCount?.toIntOrNull() ?: 0
-        this.knownCount = knownCount?.toIntOrNull() ?: 0
+    private fun invokeParams(gold: String? = "0", step: String? = "0", done: String? = "0",
+                             station: String? = "0", flag:String? = "0", known:String? = "0") {
+        goldCount = gold?.toIntOrNull() ?: 0
+        stepCount = step?.toIntOrNull() ?: 0
+        doneCount = done?.toIntOrNull() ?: 0
+        stationCount = station?.toIntOrNull() ?: 0
+        flagCount = flag?.toIntOrNull() ?: 0
+        knownCount = known?.toIntOrNull() ?: 0
 
         bindView.goldCount.text = SpannableString("金        币：$goldCount").apply {
             setSpan(ForegroundColorSpan(Color.parseColor("#9F5F18")), 0, 11, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)

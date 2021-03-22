@@ -64,6 +64,12 @@ class WalkMoveScene : Fragment() {
     private fun receive(command: String?) {
         command?.split(";")?.takeIf { it.size >= 2 && it[0] == "city" }?.also {
             when (it[1]) {
+                CityGo -> {
+                    Music.stopBgMusic()
+                    Music.playAssetsAudio("music/${it[2]}.mp3") {
+                        Music.playAssetsBgMusic(data?.bgm)
+                    }
+                }
                 CityWarning -> {
                     bindView.lottieView.cancelAnimation()
                     bindView.lottieView.setAnimation(emotion("zm"))
@@ -76,8 +82,7 @@ class WalkMoveScene : Fragment() {
                     bindView.lottieView.playAnimation()
                     Music.playAssetsAudio("music/max_time_over.mp3")
                 }
-                CityGoAhead -> Music.playAssetsAudio(it[2].replace("tts", "music"))
-                CityLose -> Music.playAssetsAudio(it[2].replace("tts", "music"))
+                CityGoAhead, CityLose -> Music.playAssetsAudio("music/${it[2]}.mp3")
             }
         }
     }

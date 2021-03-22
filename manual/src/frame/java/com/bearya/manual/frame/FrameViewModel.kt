@@ -83,6 +83,7 @@ class FrameViewModel : ViewModel() {
             CitySchool1 -> SummaryScene.build(SchoolSummaryFrame1)
             CitySchool2 -> SummaryScene.build(SchoolSummaryFrame2)
             CitySchool3 -> SummaryScene.build(SchoolSummaryFrame3)
+            CityPatriotism -> SummaryScene.build(PatriotismSummaryFrame)
             CityLoadException1 -> ExceptionScene.build(LoadExceptionFrame1)
             CityLoadException2 -> ExceptionScene.build(LoadExceptionFrame2)
             CityLoadException3 -> ExceptionScene.build(LoadExceptionFrame3)

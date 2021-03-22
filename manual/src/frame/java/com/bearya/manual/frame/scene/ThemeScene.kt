@@ -63,14 +63,13 @@ class ThemeScene : Fragment() {
                 Music.playAssetsAudio(data?.repeatMusic)
             }
         }
-
     }
 
     private fun receive(command: String?) {
         command?.split(";")?.takeIf { it.size >= 3 && it[0] == "city" && it[1] == CityGo }?.also {
             launch?.cancel()
             Music.stopBgMusic()
-            Music.playAssetsAudio(it[2])
+            Music.playAssetsAudio("music/${it[2]}.mp3")
         } ?: command?.also {
             launch?.cancel()
             when (it) {

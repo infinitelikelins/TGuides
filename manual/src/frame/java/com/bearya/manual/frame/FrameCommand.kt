@@ -174,6 +174,7 @@ const val CityPark3: String = "10082"
 const val CitySchool1: String = "10083"
 const val CitySchool2: String = "10084"
 const val CitySchool3: String = "10085"
+const val CityPatriotism: String = "10086"
 
 const val CityLoadException1: String = "10091"
 const val CityLoadException2: String = "10092"
@@ -187,4 +188,4 @@ const val CityGo: String = "10098"
 
 const val CityFlag: String = "10100"
 
-const val CityKnown:String = "10101"
+const val CityKnown: String = "10101"
