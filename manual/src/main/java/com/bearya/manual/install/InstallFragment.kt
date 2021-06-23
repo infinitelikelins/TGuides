@@ -44,8 +44,8 @@ class InstallFragment : Fragment() {
         return bindView.apply { lifecycleOwner = viewLifecycleOwner }.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         if (File(apkPath).exists()) {
             Logger.d("应用已下载 $apkPath")
 
@@ -64,7 +64,6 @@ class InstallFragment : Fragment() {
             } else {
                 ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), requestReadExternalStorageCode)
             }
-
         } else {
             mainViewModel.newApkUrl.observe(viewLifecycleOwner) {
                 it?.apply {

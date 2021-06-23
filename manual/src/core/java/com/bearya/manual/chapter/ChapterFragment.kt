@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bearya.data.entity.Chapter
@@ -22,9 +21,7 @@ class ChapterFragment : Fragment() {
     private val chapterAdapter: ChapterAdapter by lazy {
         ChapterAdapter().apply {
             onItemSelectedListener = { _: View, chapter: Chapter?, _: Int ->
-                val dir = "chapter/${chapter?.name}/resource"
-                val directions = ChapterFragmentDirections.actionChapterFragmentToSectionFragment(dir)
-                findNavController().navigate(directions)
+                findNavController().navigate(ChapterFragmentDirections.actionChapterFragmentToSectionFragment("chapter/${chapter?.name}/resource"))
             }
         }
     }
@@ -34,7 +31,7 @@ class ChapterFragment : Fragment() {
         viewModel.bookId.setData(args.bookId)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         bindView = FragmentChapterBinding.inflate(inflater, container, false)
         return bindView.apply { lifecycleOwner = viewLifecycleOwner }.root
     }

@@ -33,8 +33,8 @@ class BookPagingAdapter : PagingDataAdapter<Book, BookViewHolder>(object : DiffU
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         val book = getItem(position)
 
-        holder.bindView?.cover = book?.cover?.assetsPath()
-        holder.bindView?.lock = book?.lock ?: true
+        holder.bindView.cover = book?.cover?.assetsPath()
+        holder.bindView.lock = book?.lock ?: true
 
         holder.itemView.apply {
 
@@ -69,5 +69,5 @@ class BookPagingAdapter : PagingDataAdapter<Book, BookViewHolder>(object : DiffU
 }
 
 class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val bindView: ItemBookBinding? = ItemBookBinding.bind(itemView)
+    val bindView: ItemBookBinding = ItemBookBinding.bind(itemView)
 }

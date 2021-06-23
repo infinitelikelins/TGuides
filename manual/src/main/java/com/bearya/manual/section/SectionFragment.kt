@@ -53,7 +53,7 @@ class SectionFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         bindView = FragmentSectionBinding.inflate(inflater, container, false)
         return bindView.apply { lifecycleOwner = viewLifecycleOwner }.root
     }
@@ -139,11 +139,10 @@ class GestureListener : GestureDetector.SimpleOnGestureListener() {
     }
 
     override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
-        val x1 = e1?.x ?: 0f
-        val x2 = e2?.x ?: 0f
-        if ((x1 - x2) < -50) {
+        val t = (e1?.x ?: 0f) - (e2?.x ?: 0f)
+        if (t < -50) {
             EventBus.getDefault().post(KeyEvents(KeyEvent.KEYCODE_DPAD_LEFT))
-        } else if ((x1 - x2) > 50) {
+        } else if (t > 50) {
             EventBus.getDefault().post(KeyEvents(KeyEvent.KEYCODE_DPAD_RIGHT))
         }
         return super.onScroll(e1, e2, distanceX, distanceY)
@@ -162,7 +161,7 @@ internal class ImageFragment : Fragment(), View.OnKeyListener {
     private lateinit var bindView: ItemImageBinding
     private val gesture by lazy { GestureDetector(requireContext(), GestureListener()) }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         bindView = ItemImageBinding.inflate(inflater, container, false)
         return bindView.apply { lifecycleOwner = viewLifecycleOwner }.root
     }

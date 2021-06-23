@@ -61,10 +61,10 @@ class SectionAdapter : RecyclerView.Adapter<PlayListViewHolder>() {
 
     }
 
-    fun setNewData(data: List<String>?) {
-        if (data != null) {
-            this.data.clear()
-            this.data.addAll(data)
+    fun setNewData(newData: List<String>?) {
+        if (newData != null) {
+            data.clear()
+            data.addAll(newData)
             notifyDataSetChanged()
         }
     }
@@ -89,7 +89,5 @@ class SectionAdapter : RecyclerView.Adapter<PlayListViewHolder>() {
 }
 
 class PlayListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
     val bindView: ItemPlaylistBinding = ItemPlaylistBinding.bind(itemView)
-
 }

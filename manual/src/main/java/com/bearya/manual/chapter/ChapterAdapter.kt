@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
-import androidx.databinding.DataBindingUtil
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -39,11 +38,11 @@ class ChapterAdapter : PagingDataAdapter<Chapter, UnitViewHolder>(object : DiffU
 
         val chapter = getItem(position)
 
-        holder.bindView?.name = chapter?.name
+        holder.bindView.name = chapter?.name
                 ?.replace("(小)", "")
                 ?.replace("(中)", "")
                 ?.replace("(大)", "")
-        holder.bindView?.cover = "chapter/${chapter?.name}/cover.webp".assetsPath()
+        holder.bindView.cover = "chapter/${chapter?.name}/cover.webp".assetsPath()
 
         holder.itemView.apply {
 
@@ -78,7 +77,5 @@ class ChapterAdapter : PagingDataAdapter<Chapter, UnitViewHolder>(object : DiffU
 }
 
 class UnitViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-    val bindView: ItemChapterBinding? = DataBindingUtil.bind(itemView)
-
+    val bindView: ItemChapterBinding = ItemChapterBinding.bind(itemView)
 }

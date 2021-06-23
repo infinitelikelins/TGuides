@@ -43,7 +43,7 @@ class ChapterFragment : Fragment(), View.OnFocusChangeListener, View.OnClickList
         viewModel.bookId.setData(args.bookId)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         bindView = FragmentChapterBinding.inflate(inflater, container, false)
         return bindView.apply { lifecycleOwner = viewLifecycleOwner }.root
     }

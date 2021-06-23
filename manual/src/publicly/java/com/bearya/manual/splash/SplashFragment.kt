@@ -29,7 +29,7 @@ class SplashFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         bindView = DataBindingUtil.inflate(inflater, R.layout.fragment_splash, container, false)
         return bindView.apply { lifecycleOwner = viewLifecycleOwner }.root
     }

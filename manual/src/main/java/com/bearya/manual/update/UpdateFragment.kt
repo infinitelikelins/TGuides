@@ -15,7 +15,7 @@ class UpdateFragment : Fragment() {
     private lateinit var bindView: FragmentUpdateBinding
     private val mainViewModel: MainViewModel by activityViewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         bindView = FragmentUpdateBinding.inflate(inflater, container, false)
         return bindView.apply { lifecycleOwner = viewLifecycleOwner }.root
     }
