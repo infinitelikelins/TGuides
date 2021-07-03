@@ -54,17 +54,17 @@ android {
         }
 
         // 民办园课件版本ACE
-        core {
-            java {
-                srcDirs = ['src/frame/java', 'src/core/java']
-            }
-            res {
-                srcDirs = ['src/frame/res', 'src/core/res']
-            }
-            assets {
-                srcDirs = ['src/frame/assets', 'src/core/assets']
-            }
-        }
+//        core {
+//            java {
+//                srcDirs = ['src/frame/java', 'src/core/java']
+//            }
+//            res {
+//                srcDirs = ['src/frame/res', 'src/core/res']
+//            }
+//            assets {
+//                srcDirs = ['src/frame/assets', 'src/core/assets']
+//            }
+//        }
 
         // 公办园课件版本
         publicly {
@@ -80,68 +80,68 @@ android {
         }
 
         // 贝芽暑期课版本
-        summer {
-            java {
-                srcDirs = ['src/summer/java', 'src/frame/java']
-            }
-            res {
-                srcDirs = ['src/summer/res', 'src/frame/res']
-            }
-            assets {
-                srcDirs = ['src/summer/assets', 'src/frame/assets']
-            }
-        }
+//        summer {
+//            java {
+//                srcDirs = ['src/summer/java', 'src/frame/java']
+//            }
+//            res {
+//                srcDirs = ['src/summer/res', 'src/frame/res']
+//            }
+//            assets {
+//                srcDirs = ['src/summer/assets', 'src/frame/assets']
+//            }
+//        }
 
         // 幼小衔接课版本
-        connect {
-            java {
-                srcDirs = ['src/connect/java', 'src/frame/java']
-            }
-            res {
-                srcDirs = ['src/connect/res', 'src/frame/res']
-            }
-            assets {
-                srcDirs = ['src/connect/assets', 'src/frame/assets']
-            }
-        }
+//        connect {
+//            java {
+//                srcDirs = ['src/connect/java', 'src/frame/java']
+//            }
+//            res {
+//                srcDirs = ['src/connect/res', 'src/frame/res']
+//            }
+//            assets {
+//                srcDirs = ['src/connect/assets', 'src/frame/assets']
+//            }
+//        }
 
         // 民办园课件版本BDF
-        world {
-            java {
-                srcDirs = ['src/frame/java', 'src/world/java']
-            }
-            res {
-                srcDirs = ['src/frame/res', 'src/core/res']
-            }
-            assets {
-                srcDirs = ['src/frame/assets', 'src/world/assets']
-            }
-        }
+//        world {
+//            java {
+//                srcDirs = ['src/frame/java', 'src/world/java']
+//            }
+//            res {
+//                srcDirs = ['src/frame/res', 'src/core/res']
+//            }
+//            assets {
+//                srcDirs = ['src/frame/assets', 'src/world/assets']
+//            }
+//        }
 
     }
 
     productFlavors {
 
         // 民办园课件版本 ACE
-        core {
-            versionName "2.4.0"
-            manifestPlaceholders = [appName: "贝芽幼儿编程教学支持(上)"]
-            sourceSets.main.manifest.srcFile '/src/core/AndroidManifest.xml'
-            buildConfigField "int", "APP_TYPE", "10"
-            buildConfigField "String", "APP_DOWNLOAD_NAME", "\"manual.apk\""
-            dimension "default"
-        }
+//        core {
+//            versionName "2.4.0"
+//            manifestPlaceholders = [appName: "贝芽幼儿编程教学支持(上)"]
+//            sourceSets.main.manifest.srcFile '/src/core/AndroidManifest.xml'
+//            buildConfigField "int", "APP_TYPE", "10"
+//            buildConfigField "String", "APP_DOWNLOAD_NAME", "\"manual.apk\""
+//            dimension "default"
+//        }
 
         // 民办园课件版本 BDF
-        world {
-            versionName "2.4.0"
-            applicationIdSuffix ".world"
-            manifestPlaceholders = [appName: "贝芽幼儿编程教学支持(下)"]
-            sourceSets.main.manifest.srcFile '/src/world/AndroidManifest.xml'
-            buildConfigField "int", "APP_TYPE", "24"
-            buildConfigField "String", "APP_DOWNLOAD_NAME", "\"world.apk\""
-            dimension "default"
-        }
+//        world {
+//            versionName "2.4.0"
+//            applicationIdSuffix ".world"
+//            manifestPlaceholders = [appName: "贝芽幼儿编程教学支持(下)"]
+//            sourceSets.main.manifest.srcFile '/src/world/AndroidManifest.xml'
+//            buildConfigField "int", "APP_TYPE", "24"
+//            buildConfigField "String", "APP_DOWNLOAD_NAME", "\"world.apk\""
+//            dimension "default"
+//        }
 
         // 公办园课件版本
         publicly {
@@ -155,26 +155,26 @@ android {
         }
 
         // 贝芽暑期课版本
-        summer {
-            versionName "2.4.0"
-            applicationIdSuffix ".summer"
-            manifestPlaceholders = [appName: "贝芽暑期课"]
-            sourceSets.main.manifest.srcFile '/src/summer/AndroidManifest.xml'
-            buildConfigField "int", "APP_TYPE", "13"
-            buildConfigField "String", "APP_DOWNLOAD_NAME", "\"summer.apk\""
-            dimension "default"
-        }
+//        summer {
+//            versionName "2.4.0"
+//            applicationIdSuffix ".summer"
+//            manifestPlaceholders = [appName: "贝芽暑期课"]
+//            sourceSets.main.manifest.srcFile '/src/summer/AndroidManifest.xml'
+//            buildConfigField "int", "APP_TYPE", "13"
+//            buildConfigField "String", "APP_DOWNLOAD_NAME", "\"summer.apk\""
+//            dimension "default"
+//        }
 
         // 幼小衔接课版本
-        connect {
-            versionName "2.4.0"
-            applicationIdSuffix ".connect"
-            manifestPlaceholders = [appName: "贝芽衔接课"]
-            sourceSets.main.manifest.srcFile '/src/connect/AndroidManifest.xml'
-            buildConfigField "int", "APP_TYPE", "14"
-            buildConfigField "String", "APP_DOWNLOAD_NAME", "\"connect.apk\""
-            dimension "default"
-        }
+//        connect {
+//            versionName "2.4.0"
+//            applicationIdSuffix ".connect"
+//            manifestPlaceholders = [appName: "贝芽衔接课"]
+//            sourceSets.main.manifest.srcFile '/src/connect/AndroidManifest.xml'
+//            buildConfigField "int", "APP_TYPE", "14"
+//            buildConfigField "String", "APP_DOWNLOAD_NAME", "\"connect.apk\""
+//            dimension "default"
+//        }
 
     }
 

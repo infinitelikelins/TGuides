@@ -21,24 +21,18 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun chapterDao(): ChapterDao
 
     companion object {
-
         lateinit var instance: AppDatabase
-
     }
 
 }
 
 class DatabaseInitializer : Initializer<AppDatabase> {
 
-    override fun create(context: Context): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java, "manual.db")
-                .createFromAsset("database/manual.db")
-                .addMigrations(migrations_1_2, migrations_2_3, migrations_3_4, migrations_4_5, migrations_5_6)
-                .build()
-    }
+    override fun create(context: Context): AppDatabase = Room.databaseBuilder(context, AppDatabase::class.java, "manual.db")
+        .createFromAsset("database/manual.db")
+        .addMigrations(migrations_1_2, migrations_2_3, migrations_3_4, migrations_4_5, migrations_5_6)
+        .build()
 
-    override fun dependencies(): MutableList<Class<out Initializer<*>>> {
-        return mutableListOf()
-    }
+    override fun dependencies(): MutableList<Class<out Initializer<*>>> = mutableListOf()
 
 }
