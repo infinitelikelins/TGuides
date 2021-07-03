@@ -52,16 +52,11 @@ class BookFragment : Fragment(), View.OnFocusChangeListener, View.OnClickListene
         bindView.navigationSettings.onFocusChangeListener = this
         bindView.navigationSettings.setOnClickListener(this)
         mainViewModel.hasNewApk.observe(viewLifecycleOwner) {
-            if (it) { "设置(发现新版本)" } else { "设置" }.apply { bindView.navigationSettings.text = this }
+            bindView.navigationSettings.text = if (it) { "设置(发现新版本)" } else { "设置" }
         }
         bindView.bookRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         bindView.bookRecyclerView.itemAnimator = DefaultItemAnimator()
         bindView.bookRecyclerView.adapter = bookPagingAdapter
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
         bindView.bluetoothName = mainViewModel.bluetoothName
 
         viewModel.books.observe(viewLifecycleOwner) {

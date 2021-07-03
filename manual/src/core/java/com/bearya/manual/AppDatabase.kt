@@ -14,16 +14,14 @@ import com.bearya.data.migrations.*
 @Database(entities = [
     Book::class,
     Chapter::class
-], version = 11, exportSchema = true)
+], version = 13, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun bookDao(): BookDao
     abstract fun chapterDao(): ChapterDao
 
     companion object {
-
         lateinit var instance: AppDatabase
-
     }
 
 }
@@ -31,10 +29,11 @@ abstract class AppDatabase : RoomDatabase() {
 class DatabaseInitializer : Initializer<AppDatabase> {
 
     override fun create(context: Context): AppDatabase = Room.databaseBuilder(context, AppDatabase::class.java, "manual.db")
-            .createFromAsset("database/manual.db")
-            .addMigrations(migrations_1_2, migrations_2_3, migrations_3_4, migrations_4_5, migrations_5_6)
-            .addMigrations(migrations_6_7, migrations_7_8, migrations_8_9, migrations_9_10, migrations_10_11)
-            .build()
+        .createFromAsset("database/manual.db")
+        .addMigrations(migrations_1_12, migrations_2_12, migrations_3_12, migrations_4_12, migrations_5_12)
+        .addMigrations(migrations_6_12, migrations_7_12, migrations_8_12, migrations_9_12, migrations_10_12)
+        .addMigrations(migrations_11_12, migrations_12_13)
+        .build()
 
     override fun dependencies(): MutableList<Class<out Initializer<*>>> = mutableListOf()
 

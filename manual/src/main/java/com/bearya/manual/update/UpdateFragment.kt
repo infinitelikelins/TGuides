@@ -27,10 +27,6 @@ class UpdateFragment : Fragment() {
             val directions = UpdateFragmentDirections.actionUpdateFragmentToInstallFragment()
             Navigation.findNavController(v).navigate(directions)
         }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         bindView.mainViewModel = mainViewModel
     }
 

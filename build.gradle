@@ -1,7 +1,7 @@
 buildscript {
 
     ext {
-        kotlin_version = '1.5.10'
+        kotlin_version = '1.5.20'
         lifecycle_version = '2.3.1'
         room_version = '2.3.0'
         navigation_version = '2.3.5'
@@ -10,11 +10,11 @@ buildscript {
 
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.1'
+        classpath 'com.android.tools.build:gradle:4.2.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation_version"
     }
@@ -27,7 +27,6 @@ allprojects {
         google()
         jcenter()
         mavenCentral()
-        maven { url "http://dl.bintray.com/glomadrian/maven" }
         maven { url "https://jitpack.io" }
     }
 

@@ -10,9 +10,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.Navigation
-import androidx.startup.AppInitializer
-import com.bearya.manual.AppDatabase
-import com.bearya.manual.DatabaseInitializer
 import com.bearya.manual.R
 import com.bearya.manual.databinding.ActivityMainBinding
 import com.orhanobut.logger.Logger
@@ -67,7 +64,7 @@ class MainActivity : AppCompatActivity() {
         toTypedArray.takeIf { it.isNotEmpty() }?.also {
             ActivityCompat.requestPermissions(this, it, 123)
         }
-        AppDatabase.instance = AppInitializer.getInstance(this).initializeComponent(DatabaseInitializer::class.java)
+
     }
 
     override fun onSupportNavigateUp(): Boolean = Navigation.findNavController(this, R.id.container_fragment).navigateUp()

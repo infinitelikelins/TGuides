@@ -7,10 +7,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import androidx.lifecycle.*
+import androidx.startup.AppInitializer
 import com.bearya.component.Api
 import com.bearya.data.bean.UpdateInfo
 import com.bearya.manual.App
+import com.bearya.manual.AppDatabase
 import com.bearya.manual.BuildConfig
+import com.bearya.manual.DatabaseInitializer
 import com.bearya.service.BluetoothMonitorService
 import com.bearya.service.SocketConnectStatus
 import kotlinx.coroutines.launch
@@ -23,6 +26,7 @@ import java.util.*
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
+        AppDatabase.instance = AppInitializer.getInstance(application.applicationContext).initializeComponent(DatabaseInitializer::class.java)
         BluetoothMonitorService.start(application.applicationContext)
     }
 
@@ -106,6 +110,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     override fun onCleared() {
         super.onCleared()
+        AppDatabase.instance.close()
         app.sendBroadcast(Intent(ACTION_STOP_SERVICE))
         app.unregisterReceiver(bluetoothStateBroadcastReceiver)
     }

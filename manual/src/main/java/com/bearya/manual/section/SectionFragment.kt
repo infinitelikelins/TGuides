@@ -7,6 +7,7 @@ import android.content.res.Configuration
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -53,7 +54,9 @@ class SectionFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         bindView = FragmentSectionBinding.inflate(inflater, container, false)
         return bindView.apply { lifecycleOwner = viewLifecycleOwner }.root
     }
@@ -61,15 +64,10 @@ class SectionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bindView.playList.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = sectionPlayListAdapter
         }
-        EventBus.getDefault().register(this)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
         viewModel.sectionDirPath.value = args.sectionDirPath
         viewModel.sectionDirFile.observe(viewLifecycleOwner) {
             sectionPlayListAdapter.setNewData(it)
@@ -78,6 +76,7 @@ class SectionFragment : Fragment() {
             play(it)
             sectionPlayListAdapter.setSelectedIndex(it)
         }
+        EventBus.getDefault().register(this)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -93,17 +92,21 @@ class SectionFragment : Fragment() {
                     handler.post(handlerControllerGoneRunnable)
                 }
             }
-            KeyEvent.KEYCODE_DPAD_RIGHT -> viewModel.playIndex.value?.takeIf { it < (sectionPlayListAdapter.data.size - 1) }?.plus(1)?.apply { viewModel.playIndex.setData(this) }
-            KeyEvent.KEYCODE_DPAD_LEFT -> viewModel.playIndex.value?.takeIf { it > 0 }?.minus(1)?.apply { viewModel.playIndex.setData(this) }
+            KeyEvent.KEYCODE_DPAD_RIGHT -> viewModel.playIndex.value?.takeIf { it < (sectionPlayListAdapter.data.size - 1) }
+                ?.plus(1)?.apply { viewModel.playIndex.setData(this) }
+            KeyEvent.KEYCODE_DPAD_LEFT -> viewModel.playIndex.value?.takeIf { it > 0 }?.minus(1)
+                ?.apply { viewModel.playIndex.setData(this) }
 
         }
     }
 
     override fun onResume() {
         super.onResume()
-        (context?.getSystemService(Context.UI_MODE_SERVICE) as? UiModeManager?)?.takeIf { it.currentModeType == Configuration.UI_MODE_TYPE_TELEVISION }?.also {
-                    Alerter.create(requireActivity()).setTitle(R.string.guide_toast).setBackgroundColorRes(R.color.colorGray).setDuration(6 * 1000).show()
-                }
+        (context?.getSystemService(Context.UI_MODE_SERVICE) as? UiModeManager?)?.takeIf { it.currentModeType == Configuration.UI_MODE_TYPE_TELEVISION }
+            ?.also {
+                Alerter.create(requireActivity()).setTitle(R.string.guide_toast)
+                    .setBackgroundColorRes(R.color.colorGray).setDuration(6000L).show()
+            }
         handler.postDelayed(handlerControllerGoneRunnable, 3000)
     }
 
@@ -117,17 +120,17 @@ class SectionFragment : Fragment() {
 
     private fun play(index: Int) {
         if (sectionPlayListAdapter.data.size > index) {
-            ImageFragment.create(sectionPlayListAdapter.data[index])
-        } else {
-            null
-        }?.also {
             handler.removeCallbacks(handlerControllerGoneRunnable)
-            childFragmentManager.beginTransaction().replace(R.id.player_layout, it, "$index").commit()
+            childFragmentManager.beginTransaction().replace(
+                    R.id.player_layout,
+                    ImageFragment.create(sectionPlayListAdapter.data[index]),
+                    "$index"
+                ).commit()
             handler.postDelayed(handlerControllerGoneRunnable, 3000)
         }
     }
 
-    private class RunnableHandler : Handler()
+    private class RunnableHandler : Handler(Looper.getMainLooper())
 
 }
 
@@ -138,7 +141,9 @@ class GestureListener : GestureDetector.SimpleOnGestureListener() {
         return super.onSingleTapConfirmed(e)
     }
 
-    override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
+    override fun onScroll(
+        e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float
+    ): Boolean {
         val t = (e1?.x ?: 0f) - (e2?.x ?: 0f)
         if (t < -50) {
             EventBus.getDefault().post(KeyEvents(KeyEvent.KEYCODE_DPAD_LEFT))
@@ -161,7 +166,9 @@ internal class ImageFragment : Fragment(), View.OnKeyListener {
     private lateinit var bindView: ItemImageBinding
     private val gesture by lazy { GestureDetector(requireContext(), GestureListener()) }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         bindView = ItemImageBinding.inflate(inflater, container, false)
         return bindView.apply { lifecycleOwner = viewLifecycleOwner }.root
     }
@@ -177,16 +184,13 @@ internal class ImageFragment : Fragment(), View.OnKeyListener {
                 inJustDecodeBounds = true
             }
             BitmapFactory.decodeStream(requireContext().assets.open(image), null, factory)
-            withContext(Dispatchers.Main) {
-                //获取原图的宽高
+            withContext(Dispatchers.Main) { //获取原图的宽高
                 val width = factory.outWidth
-                val height = factory.outHeight
-                //获取imageView的宽
+                val height = factory.outHeight //获取imageView的宽
                 val imageViewWidth = resources.displayMetrics.widthPixels
-                if (imageViewWidth != width) {
-                    // 计算缩放比例
-                    val sy = (imageViewWidth * 0.1).toFloat() / (width * 0.1).toFloat()
-                    // 计算图片等比例放大后的高
+                if (imageViewWidth != width) { // 计算缩放比例
+                    val sy =
+                        (imageViewWidth * 0.1).toFloat() / (width * 0.1).toFloat() // 计算图片等比例放大后的高
                     val imageViewHeight = (height * sy).toInt()
                     val params = bindView.imageView.layoutParams
                     params.height = imageViewHeight
@@ -207,9 +211,12 @@ internal class ImageFragment : Fragment(), View.OnKeyListener {
             when (keyCode) {
                 KeyEvent.KEYCODE_DPAD_UP -> bindView.scrollPicture.smoothScrollBy(0, -2)
                 KeyEvent.KEYCODE_DPAD_DOWN -> bindView.scrollPicture.smoothScrollBy(0, 2)
-                KeyEvent.KEYCODE_DPAD_LEFT -> EventBus.getDefault().post(KeyEvents(KeyEvent.KEYCODE_DPAD_LEFT))
-                KeyEvent.KEYCODE_DPAD_RIGHT -> EventBus.getDefault().post(KeyEvents(KeyEvent.KEYCODE_DPAD_RIGHT))
-                KeyEvent.KEYCODE_MENU, KeyEvent.KEYCODE_M -> EventBus.getDefault().post(KeyEvents(KeyEvent.KEYCODE_MENU))
+                KeyEvent.KEYCODE_DPAD_LEFT -> EventBus.getDefault()
+                    .post(KeyEvents(KeyEvent.KEYCODE_DPAD_LEFT))
+                KeyEvent.KEYCODE_DPAD_RIGHT -> EventBus.getDefault()
+                    .post(KeyEvents(KeyEvent.KEYCODE_DPAD_RIGHT))
+                KeyEvent.KEYCODE_MENU, KeyEvent.KEYCODE_M -> EventBus.getDefault()
+                    .post(KeyEvents(KeyEvent.KEYCODE_MENU))
             }
         }
     }

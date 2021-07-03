@@ -6,8 +6,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 val migrations_1_2 = object : Migration(1, 2) {
 
     override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL("DROP TABLE Book;")
-        database.execSQL("DROP TABLE Chapter;")
+        database.execSQL("DROP TABLE Book")
+        database.execSQL("DROP TABLE Chapter")
     }
 
 }
@@ -15,8 +15,8 @@ val migrations_1_2 = object : Migration(1, 2) {
 val migrations_2_3 = object : Migration(2, 3) {
 
     override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL("CREATE TABLE IF NOT EXISTS `Book` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `cover` TEXT, `enable` INTEGER, `lock` INTEGER);")
-        database.execSQL("CREATE TABLE IF NOT EXISTS `Chapter` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `bookId` INTEGER , `enable` INTEGER);")
+        database.execSQL("CREATE TABLE IF NOT EXISTS `Book` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `cover` TEXT, `enable` INTEGER, `lock` INTEGER)")
+        database.execSQL("CREATE TABLE IF NOT EXISTS `Chapter` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `bookId` INTEGER , `enable` INTEGER)")
     }
 
 }

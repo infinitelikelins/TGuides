@@ -26,9 +26,9 @@ class BookPagingAdapter : PagingDataAdapter<Book, BookViewHolder>(object : DiffU
     private var recyclerView: RecyclerView? = null
     var onItemClickLister: OnItemClickListener<Book?>? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
-        return BookViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_book, parent, false))
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder = BookViewHolder(
+        LayoutInflater.from(parent.context).inflate(R.layout.item_book, parent, false)
+    )
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         val book = getItem(position)

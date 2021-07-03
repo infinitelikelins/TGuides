@@ -9,6 +9,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bearya.data.entity.Chapter
+import com.bearya.manual.R
 import com.bearya.manual.databinding.ItemChapterBinding
 import library.OnItemSelectedListener
 import library.ext.assetsPath
@@ -31,17 +32,14 @@ class ChapterAdapter : PagingDataAdapter<Chapter, UnitViewHolder>(object : DiffU
     var onItemSelectedListener: OnItemSelectedListener<Chapter>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UnitViewHolder = UnitViewHolder(
-            ItemChapterBinding.inflate(LayoutInflater.from(parent.context), parent, false).root
+        LayoutInflater.from(parent.context).inflate(R.layout.item_chapter, parent, false)
     )
 
     override fun onBindViewHolder(holder: UnitViewHolder, position: Int) {
 
         val chapter = getItem(position)
 
-        holder.bindView.name = chapter?.name
-                ?.replace("(小)", "")
-                ?.replace("(中)", "")
-                ?.replace("(大)", "")
+        holder.bindView.name = chapter?.name?.replace(Regex("(.*)\\((.*)\\)"),"$1")
         holder.bindView.cover = "chapter/${chapter?.name}/cover.webp".assetsPath()
 
         holder.itemView.apply {

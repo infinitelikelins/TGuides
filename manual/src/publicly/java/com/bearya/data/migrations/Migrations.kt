@@ -6,8 +6,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 val migrations_1_2 = object : Migration(1, 2) {
 
     override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL("DROP TABLE Book;")
-        database.execSQL("DROP TABLE Chapter;")
+        database.execSQL("DROP TABLE Book")
+        database.execSQL("DROP TABLE Chapter")
     }
 
 }
