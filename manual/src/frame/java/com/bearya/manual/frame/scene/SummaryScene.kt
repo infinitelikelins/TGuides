@@ -61,11 +61,6 @@ class SummaryScene : Fragment() {
         bindView.frameSurface.mBitmapResourceIds = data?.images
         bindView.frameSurface.mGapTime = data?.gapTime
 
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
         viewModel.receiveCommand.observe(viewLifecycleOwner) {
             receive(it)
         }
@@ -79,6 +74,7 @@ class SummaryScene : Fragment() {
                 showCount()
             }
         }
+
     }
 
     override fun onStop() {
@@ -121,46 +117,36 @@ class SummaryScene : Fragment() {
 
         val audios = mutableListOf<String>()
 
-        goldCount.takeIf { it > 0 }?.let {
-            listOf(
-                    "music/congratulations.mp3",
-                    "music/${goldCount.takeIf { it < 50 } ?: 50}.mp3",
-                    "music/coin.mp3"
-            )
-        }?.apply {
-            audios.addAll(this)
+        goldCount.takeIf { it > 0 }?.apply {
+            audios.addAll(mutableListOf(
+                "music/congratulations.mp3",
+                "music/${takeIf { it < 50 } ?: 50}.mp3",
+                "music/coin.mp3"
+            ))
         }
 
-        stepCount.takeIf { it > 0 }?.let {
-            listOf(
-                    "music/had_gone.mp3",
-                    "music/${stepCount.takeIf { it < 50 } ?: 50}.mp3",
-                    "music/step.mp3"
-            )
-        }?.apply {
-            audios.addAll(this)
+        stepCount.takeIf { it > 0 }?.apply {
+            audios.addAll(mutableListOf(
+                "music/had_gone.mp3",
+                "music/${takeIf { it < 50 } ?: 50}.mp3",
+                "music/step.mp3"
+            ))
         }
 
-        doneCount.takeIf { it > 0 }?.let {
-            listOf(
-                    "music/had_done.mp3",
-                    "music/${doneCount.takeIf { it < 50 } ?: 50}.mp3",
-                    "music/good_deed.mp3"
-            )
-        }?.apply {
-            audios.addAll(this)
+        doneCount.takeIf { it > 0 }?.apply {
+            audios.addAll(mutableListOf(
+                "music/had_done.mp3",
+                "music/${takeIf { it < 50 } ?: 50}.mp3",
+                "music/good_deed.mp3"
+            ))
         }
 
-        flagCount.takeIf { it > 0 }?.let {
-            "music/flag_$flagCount.mp3"
-        }?.apply {
-            audios.add(this)
+        flagCount.takeIf { it > 0 }?.apply {
+            audios.add("music/flag_$this.mp3")
         }
 
-        knownCount.takeIf { it > 0 }?.let {
-            "music/known_$knownCount.mp3"
-        }?.apply {
-            audios.add(this)
+        knownCount.takeIf { it > 0 }?.apply {
+            audios.add("music/known_$this.mp3")
         }
 
         Music.playAssetsAudios(audios)

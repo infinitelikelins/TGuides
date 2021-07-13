@@ -37,17 +37,15 @@ class GoldScene : Fragment() {
         bindView.frameSurface.mGapTime = GoldPropFrame.gapTime
         bindView.frameSurface.mIsRepeat = false
         bindView.frameSurface.mBitmapResourceIds = GoldPropFrame.images
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         bindView.frameSurface.start()
-        Music.playAssetsAudios(listOf(
-                "music/gold_effect.mp3",
-                "music/pick_up_coin1.mp3",
-                "music/${goldCount?.toIntOrNull()?.takeIf { it < 50 } ?: 50}.mp3",
-                "music/pick_up_coin2.mp3"
+        Music.playAssetsAudios(mutableListOf(
+            "music/gold_effect.mp3",
+            "music/pick_up_coin1.mp3",
+            "music/${goldCount?.toIntOrNull()?.takeIf { it < 50 } ?: 50}.mp3",
+            "music/pick_up_coin2.mp3"
         ))
+
     }
 
     override fun onStop() {

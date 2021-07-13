@@ -2,8 +2,6 @@ package library
 
 import android.content.Context
 import android.media.MediaPlayer
-import android.util.SparseArray
-import androidx.core.util.forEach
 import java.lang.ref.WeakReference
 
 object Music {
@@ -12,8 +10,6 @@ object Music {
     private var localMusicPlayerBg: LocalMusicPlayer? = null
 
     private val audios = mutableListOf<String>()
-
-    private val mediaPlayers: SparseArray<MediaPlayer?> by lazy { SparseArray<MediaPlayer?>() }
 
     private lateinit var mContext: WeakReference<Context>
 
@@ -25,88 +21,43 @@ object Music {
         }
     }
 
-    fun playAssetsAudios(names: List<String>?, listener: (() -> Unit)? = null) {
-
-        mediaPlayers.forEach { _, mediaPlayer ->
-            mediaPlayer?.isPlaying?.takeIf { it }.apply { mediaPlayer?.stop() }
-            mediaPlayer?.release()
-        }
-        mediaPlayers.clear()
-
+    fun playAssetsAudios(names: MutableList<String>?, listener: (() -> Unit)? = null) {
         names?.apply {
             audios.clear()
             audios.addAll(this)
             playAudios(listener)
         } ?: listener?.invoke()
-
     }
 
     private fun playAudios(listener: (() -> Unit)? = null) {
-        if (audios.size > 0) {
-            try {
-                audios.forEachIndexed { index, audio ->
-                    if (audio.isNotEmpty()) {
-                        val mediaPlayer: MediaPlayer = MediaPlayer().also { mediaPlayers.put(index, it) }
-                        val assetMg = mContext.get()?.assets
-                        val fileDescriptor = assetMg?.openFd(audio)
-                        mediaPlayer.setDataSource(fileDescriptor?.fileDescriptor,
-                                fileDescriptor?.startOffset ?: 0, fileDescriptor?.length ?: 0)
-                        mediaPlayer.prepareAsync()
-                        if (index == 0) {
-                            mediaPlayer.setOnPreparedListener {
-                                it.start()
-                            }
-                        }
-                        mediaPlayer.setOnCompletionListener {
-                            if (index == audios.size - 1) {
-                                listener?.invoke()
-                            } else {
-                                mediaPlayers[index + 1]?.start()
-                                mediaPlayers.setValueAt(index , null)
-                                it.release()
-                            }
-                        }
-                    }
-                }
-            } catch (e: Exception) {
-                error("${e.message}")
-            }
+        try {
+            playAssetsAudio(audios.removeFirst()) { playAudios(listener) }
+        } catch (ex: Exception) {
+            listener?.invoke()
         }
     }
 
     fun playAssetsAudio(name: String?, listener: (() -> Unit)? = null) {
         try {
-            stopMusic()
-            if (name?.isNotEmpty() == true) {
-                localMusicPlayer?.mOnCompletionListener = MediaPlayer.OnCompletionListener { listener?.invoke() }
-                localMusicPlayer?.isLooping = false
-                localMusicPlayer?.play(name)
-            } else {
-                listener?.invoke()
-            }
-        } catch (e: Exception) {
-            error("$name error")
+            localMusicPlayer?.stop()
+            localMusicPlayer?.mOnCompletionListener = listener
+            localMusicPlayer?.isLooping = false
+            localMusicPlayer?.play(name)
+        } catch (ex: Exception) {
             listener?.invoke()
         }
     }
 
     fun stopMusic() {
-        audios.clear()
         localMusicPlayer?.stop()
-
-        mediaPlayers.forEach { _, mediaPlayer ->
-            mediaPlayer?.isPlaying?.takeIf { it }?.apply { mediaPlayer.stop() }
-            mediaPlayer?.release()
-        }
-        mediaPlayers.clear()
     }
 
     fun playAssetsBgMusic(name: String?) {
         try {
-            stopBgMusic()
-            name?.isNotEmpty()?.takeIf { it }?.apply { localMusicPlayerBg?.play(name) }
+            localMusicPlayerBg?.stop()
+            localMusicPlayerBg?.play(name)
         } catch (e: Exception) {
-            error("$name error")
+            e.printStackTrace()
         }
     }
 
@@ -117,13 +68,6 @@ object Music {
     fun destroy() {
         localMusicPlayer?.release()
         localMusicPlayerBg?.release()
-
-        mediaPlayers.forEach { _, mediaPlayer ->
-            mediaPlayer?.isPlaying?.takeIf { it }?.apply { mediaPlayer.stop() }
-            mediaPlayer?.release()
-        }
-
-        mediaPlayers.clear()
     }
 
 }
@@ -133,9 +77,7 @@ internal class LocalMusicPlayer(context: Context, looping: Boolean = false) {
     private var mContext: WeakReference<Context>? = null
     private var mp: MediaPlayer? = null
 
-    var mOnPreparedListener: MediaPlayer.OnPreparedListener? = null
-    var mOnErrorListener: MediaPlayer.OnErrorListener? = null
-    var mOnCompletionListener: MediaPlayer.OnCompletionListener? = null
+    var mOnCompletionListener: (() -> Unit)? = null
     var isLooping: Boolean = false
         set(value) {
             field = value
@@ -145,12 +87,8 @@ internal class LocalMusicPlayer(context: Context, looping: Boolean = false) {
     init {
         mContext = WeakReference(context)
         mp = MediaPlayer().apply {
-            setOnCompletionListener {
-                mOnCompletionListener?.onCompletion(it)
-            }
-            setOnErrorListener { mp, what, extra ->
-                mOnErrorListener?.onError(mp, what, extra) ?: false
-            }
+            setOnCompletionListener { mOnCompletionListener?.invoke() }
+            setOnErrorListener { _, _, _ -> true }
         }
         isLooping = looping
     }
@@ -160,19 +98,19 @@ internal class LocalMusicPlayer(context: Context, looping: Boolean = false) {
         if (dataSource.isNotEmpty()) {
             val assetMg = mContext?.get()?.assets
             val fileDescriptor = assetMg?.openFd(dataSource)
-            mp?.setDataSource(fileDescriptor?.fileDescriptor,
-                    fileDescriptor?.startOffset ?: 0, fileDescriptor?.length ?: 0)
+            mp?.setDataSource(fileDescriptor?.fileDescriptor, fileDescriptor?.startOffset ?: 0, fileDescriptor?.length ?: 0)
         }
     }
 
     @Throws(Exception::class)
-    fun play(ds: String) {
-        stop()
-        setDataSource(ds)
-        mp?.prepareAsync()
-        mp?.setOnPreparedListener {
-            it.start()
-            mOnPreparedListener?.onPrepared(it)
+    fun play(ds: String?) {
+        if (ds != null && ds.isNotEmpty()) {
+            stop()
+            setDataSource(ds)
+            mp?.setOnPreparedListener { it.start() }
+            mp?.prepareAsync()
+        } else {
+            throw Exception("dataSource is empty")
         }
     }
 

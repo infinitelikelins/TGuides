@@ -5,8 +5,8 @@ import com.bearya.manual.frame.ThemeFrame
 
 object StoryThemeFrame : ThemeFrame {
     override val gapTime: Int = 10
-    override val music: List<String> = listOf("music/welcome.mp3", "music/delay.mp3")
-    override val repeatMusic: String? = "music/delay.mp3"
+    override val music: MutableList<String> = mutableListOf("music/welcome.mp3", "music/delay.mp3")
+    override val repeatMusic: String = "music/delay.mp3"
     override val bgm: String = "music/theme.mp3"
     override val images: IntArray = intArrayOf(
             R.drawable.stage0001, R.drawable.stage0002, R.drawable.stage0003,

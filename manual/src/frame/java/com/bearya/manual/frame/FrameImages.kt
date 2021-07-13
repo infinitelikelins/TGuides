@@ -39,7 +39,7 @@ interface ThemeFrame : Frame {
     val gapTime: Int
     val images: IntArray
     val bgm: String
-    val music: List<String>
+    val music: MutableList<String>
     val repeatMusic:String?
 }
 

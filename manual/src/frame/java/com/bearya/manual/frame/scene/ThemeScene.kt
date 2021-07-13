@@ -47,10 +47,7 @@ class ThemeScene : Fragment() {
         viewModel.receiveCommand.observe(viewLifecycleOwner) {
             receive(it)
         }
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         bindView.themeFrame.start()
         Music.stopBgMusic()
         Music.playAssetsAudios(data?.music) {
@@ -59,7 +56,7 @@ class ThemeScene : Fragment() {
 
         launch = lifecycleScope.launch {
             repeat(100000) {
-                delay(20 * 1000)
+                delay(timeMillis = 20 * 1000L)
                 Music.playAssetsAudio(data?.repeatMusic)
             }
         }
