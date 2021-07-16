@@ -1,7 +1,7 @@
 buildscript {
 
     ext {
-        kotlin_version = '1.5.20'
+        kotlin_version = '1.5.21'
         lifecycle_version = '2.3.1'
         room_version = '2.3.0'
         navigation_version = '2.3.5'
@@ -25,9 +25,9 @@ allprojects {
 
     repositories {
         google()
-        jcenter()
         mavenCentral()
         maven { url "https://jitpack.io" }
+        maven { url "https://maven.aliyun.com/repository/jcenter" }
     }
 
 }
