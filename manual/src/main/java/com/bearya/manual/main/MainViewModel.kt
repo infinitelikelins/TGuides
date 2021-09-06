@@ -10,7 +10,6 @@ import androidx.lifecycle.*
 import androidx.startup.AppInitializer
 import com.bearya.component.Api
 import com.bearya.data.bean.UpdateInfo
-import com.bearya.manual.App
 import com.bearya.manual.AppDatabase
 import com.bearya.manual.BuildConfig
 import com.bearya.manual.DatabaseInitializer
@@ -18,19 +17,16 @@ import com.bearya.service.BluetoothMonitorService
 import com.bearya.service.SocketConnectStatus
 import kotlinx.coroutines.launch
 import library.*
-
 import library.ext.setData
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel(val app: Application) : AndroidViewModel(app) {
 
     init {
-        AppDatabase.instance = AppInitializer.getInstance(application.applicationContext).initializeComponent(DatabaseInitializer::class.java)
-        BluetoothMonitorService.start(application.applicationContext)
+        AppDatabase.instance = AppInitializer.getInstance(app.applicationContext).initializeComponent(DatabaseInitializer::class.java)
+        BluetoothMonitorService.start(app.applicationContext)
     }
-
-    private val app: App by lazy { getApplication<App>() }
 
     val bluetoothState: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
 
@@ -70,10 +66,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val displayMetrics = app.resources.displayMetrics
         viewModelScope.launch {
             try {
-                Api.reportOpenLog(
-                    displayPixels = "${displayMetrics.widthPixels}*${displayMetrics.heightPixels}",
-                    action = "open"
-                )
+                Api.reportOpenLog(displayPixels = "${displayMetrics.widthPixels}*${displayMetrics.heightPixels}")
             } catch (exception: Exception) {
                 error("${exception.message}")
             }

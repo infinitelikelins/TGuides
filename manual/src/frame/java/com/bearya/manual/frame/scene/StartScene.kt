@@ -33,10 +33,7 @@ class StartScene : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         data?.image?.apply { bindView.startImage.setImageResource(this) }
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         Music.stopBgMusic()
         Music.playAssetsAudio(data?.music) {
             Music.playAssetsBgMusic(data?.bgm)

@@ -34,10 +34,7 @@ class EmotionScene : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         bindView.lottieView.setAnimation(data?.emotion)
         bindView.lottieView.playAnimation()
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         Music.playAssetsAudio(data?.music) {
             Music.playAssetsBgMusic(data?.bgm)
         }

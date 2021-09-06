@@ -33,10 +33,6 @@ class StateScene : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         data?.image?.apply { bindView.stateImage.setImageResource(this) }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         Music.stopMusic()
         Music.stopBgMusic()
     }

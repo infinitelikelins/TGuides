@@ -57,10 +57,6 @@ class BookFragment : Fragment(), View.OnFocusChangeListener, View.OnClickListene
         bindView.bookRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         bindView.bookRecyclerView.itemAnimator = DefaultItemAnimator()
         bindView.bookRecyclerView.adapter = bookPagingAdapter
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
 
         bindView.bluetoothName = mainViewModel.bluetoothName
 

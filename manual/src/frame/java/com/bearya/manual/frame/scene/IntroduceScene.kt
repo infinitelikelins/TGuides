@@ -36,10 +36,7 @@ class IntroduceScene : Fragment() {
         bindView.introduceFrame.mIsRepeat = false
         bindView.introduceFrame.mBitmapResourceIds = data?.images
         bindView.introduceFrame.mGapTime = data?.gapTime
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         bindView.introduceFrame.start()
         Music.stopBgMusic()
         Music.playAssetsAudio(data?.music)

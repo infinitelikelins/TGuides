@@ -34,7 +34,7 @@ android {
     }
 
     flavorDimensions "default"
-    
+
     aaptOptions {
         noCompress ".webp"  //表示不让aapt压缩的文件后缀
     }
@@ -117,14 +117,13 @@ android {
                 srcDirs = ['src/frame/assets', 'src/world/assets']
             }
         }
-
     }
 
     productFlavors {
 
         // 民办园课件版本 ACE
         core {
-            versionName "2.4.0"
+            versionName "2.5.1"
             manifestPlaceholders = [appName: "贝芽幼儿编程教学支持(上)"]
             sourceSets.main.manifest.srcFile '/src/core/AndroidManifest.xml'
             buildConfigField "int", "APP_TYPE", "10"
@@ -134,7 +133,7 @@ android {
 
         // 民办园课件版本 BDF
         world {
-            versionName "2.4.0"
+            versionName "2.5.1"
             applicationIdSuffix ".world"
             manifestPlaceholders = [appName: "贝芽幼儿编程教学支持(下)"]
             sourceSets.main.manifest.srcFile '/src/world/AndroidManifest.xml'
@@ -255,14 +254,14 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.2.0'
     implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'androidx.leanback:leanback:1.0.0'
-    implementation 'androidx.core:core-ktx:1.5.0'
+    implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
     implementation 'androidx.vectordrawable:vectordrawable-animated:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.0'
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.media:media:1.2.1'
+    implementation 'androidx.media:media:1.3.0'
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
     implementation "androidx.room:room-runtime:$room_version"
@@ -283,11 +282,11 @@ dependencies {
     implementation 'androidx.startup:startup-runtime:1.0.0'
     implementation 'androidx.concurrent:concurrent-futures-ktx:1.1.0'
 
-    implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'com.google.code.gson:gson:2.8.7'
+    implementation 'com.google.android.material:material:1.4.0'
 
-    implementation 'com.tencent.bugly:crashreport:3.3.92'
-    implementation 'com.tencent:mmkv-static:1.2.8'
+    implementation 'com.tencent.bugly:crashreport:3.4.4'
+    implementation 'com.tencent:mmkv-static:1.2.10'
 
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
@@ -301,7 +300,7 @@ dependencies {
     implementation 'com.github.GrenderG:Toasty:1.5.0'
     implementation 'com.github.tibolte:elasticdownload:1.0.4'
     implementation 'com.github.razerdp:BasePopup:2.2.20'
-    implementation 'com.airbnb.android:lottie:3.7.0'
+    implementation 'com.airbnb.android:lottie:4.0.0'
 
     implementation 'org.greenrobot:eventbus:3.2.0'
     implementation 'com.orhanobut:logger:2.2.0'

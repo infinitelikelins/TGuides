@@ -30,7 +30,9 @@ class BookPagingAdapter : PagingDataAdapter<Book, BookViewHolder>(object : DiffU
         LayoutInflater.from(parent.context).inflate(R.layout.item_book, parent, false)
     )
 
-    override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BookViewHolder, index: Int) {
+
+        val position = holder.bindingAdapterPosition
         val book = getItem(position)
 
         holder.bindView.cover = book?.cover?.assetsPath()

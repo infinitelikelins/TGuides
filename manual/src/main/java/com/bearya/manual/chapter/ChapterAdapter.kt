@@ -35,7 +35,9 @@ class ChapterAdapter : PagingDataAdapter<Chapter, UnitViewHolder>(object : DiffU
         LayoutInflater.from(parent.context).inflate(R.layout.item_chapter, parent, false)
     )
 
-    override fun onBindViewHolder(holder: UnitViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: UnitViewHolder, index: Int) {
+
+        val position = holder.bindingAdapterPosition
 
         val chapter = getItem(position)
 

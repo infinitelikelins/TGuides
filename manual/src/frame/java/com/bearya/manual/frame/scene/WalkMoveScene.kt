@@ -40,10 +40,7 @@ class WalkMoveScene : Fragment() {
         viewModel.receiveCommand.observe(viewLifecycleOwner) {
             receive(it)
         }
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         bindView.lottieView.playAnimation()
         data?.tips?.apply {
             Music.playAssetsAudio(this) {

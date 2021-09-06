@@ -8,9 +8,9 @@ import androidx.paging.liveData
 import kotlinx.coroutines.CoroutineScope
 
 fun <Key : Any, Value : Any> buildPagerFlow(scope: CoroutineScope, source: () -> PagingSource<Key, Value>) =
-        Pager(config = PagingConfig(pageSize = 5, prefetchDistance = 2, initialLoadSize = 5, enablePlaceholders = false),
+        Pager(config = PagingConfig(pageSize = 10, prefetchDistance = 3, initialLoadSize = 15, enablePlaceholders = false),
                 pagingSourceFactory = source).flow.cachedIn(scope)
 
 fun <Key : Any, Value : Any> buildPagerLiveData(scope: CoroutineScope, source: () -> PagingSource<Key, Value>) =
-        Pager(config = PagingConfig(pageSize = 5, prefetchDistance = 2, initialLoadSize = 5, enablePlaceholders = false),
+        Pager(config = PagingConfig(pageSize = 10, prefetchDistance = 3, initialLoadSize = 15, enablePlaceholders = false),
                 pagingSourceFactory = source).liveData.cachedIn(scope)

@@ -17,17 +17,13 @@ class LicencePopupWindow(context: Context) : BasePopupWindow(context),
 
     private lateinit var licence: AppCompatEditText
     private lateinit var activate: AppCompatTextView
-
     var onActivateClickListener: OnActivateClickListener<String>? = null
 
     override fun onCreateContentView(): View = createPopupById(R.layout.popup_licence).apply {
-
         licence = findViewById(R.id.licence)
         activate = findViewById(R.id.activate)
-
         activate.onFocusChangeListener = this@LicencePopupWindow
         activate.setOnClickListener { onActivateClickListener?.invoke(licence.text.toString()) }
-
     }
 
     override fun onCreateShowAnimation(): Animation? =

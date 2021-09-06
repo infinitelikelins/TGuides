@@ -37,10 +37,7 @@ class FlagScene : Fragment() {
         bindView.frameSurface.mGapTime = FlagPropFrame.gapTime
         bindView.frameSurface.mIsRepeat = false
         bindView.frameSurface.mBitmapResourceIds = FlagPropFrame.images
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         bindView.frameSurface.start()
         Music.playAssetsAudio("music/$flagSound.mp3")
     }

@@ -35,10 +35,7 @@ class ObstacleScene : Fragment() {
         bindView.obstacleFrame.mIsRepeat = false
         bindView.obstacleFrame.mGapTime = data?.gapTime
         bindView.obstacleFrame.mBitmapResourceIds = data?.images
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         bindView.obstacleFrame.start()
         Music.stopBgMusic()
         Music.playAssetsAudio(data?.music)

@@ -8,10 +8,13 @@ import androidx.paging.PagingData
 import com.bearya.component.Api
 import com.bearya.data.entity.Book
 import com.bearya.data.repository.BookRepository
+import com.tencent.mmkv.MMKV
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import library.Empty
 import library.Fail
 import library.NoNet
+import library.ext.buildPagerFlow
 import library.ext.buildPagerLiveData
 import java.net.UnknownHostException
 
@@ -24,7 +27,6 @@ class BookViewModel : ViewModel() {
     }
 
     fun activateVerify(code: String?): LiveData<Int?> = liveData {
-
         when {
             code.isNullOrBlank() -> emit(Empty)
             else -> emit(try {
@@ -35,11 +37,11 @@ class BookViewModel : ViewModel() {
                 Fail
             })
         }
-
     }
 
     fun unlockBooks() = viewModelScope.launch {
         bookRepository.releaseBooks()
+        MMKV.defaultMMKV().encode("lockStatus", false)
     }
 
 }

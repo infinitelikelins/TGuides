@@ -18,7 +18,9 @@ class BluetoothMonitorService : LifecycleService() {
 
     companion object {
         fun start(context: Context?) {
-            if (BluetoothAdapter.getDefaultAdapter().isEnabled) {
+            val adapter = (context?.getSystemService(Context.BLUETOOTH_SERVICE) as? BluetoothManager?)?.adapter
+                ?: BluetoothAdapter.getDefaultAdapter()
+            if (adapter?.isEnabled == true) {
                 context?.startService(Intent(context, BluetoothMonitorService::class.java))
             }
         }

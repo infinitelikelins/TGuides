@@ -44,10 +44,6 @@ class HelpScene : Fragment() {
             handleCommandResult(it)
         }
 
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         bindView.frameSurface.start()
         Music.playAssetsAudio(data?.beginMusic) {
             bindView.frameSurface.mBitmapResourceIds = data?.endImages

@@ -55,11 +55,6 @@ class EventScene : Fragment() {
             handleEvent(it)
         }
 
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
         bindView.frameSurface.start()
 
         Music.playAssetsAudio(data?.beginMusic) {

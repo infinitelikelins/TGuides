@@ -63,10 +63,6 @@ class ChapterFragment : Fragment(), View.OnFocusChangeListener, View.OnClickList
         viewModel.chapters.observe(viewLifecycleOwner) {
             chapterAdapter.submitData(lifecycle, it)
         }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
 
         mainViewModel.bluetoothState.observe(viewLifecycleOwner) {
             when (it) {

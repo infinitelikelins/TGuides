@@ -25,7 +25,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import library.*
 
-class BookFragment : Fragment(), View.OnFocusChangeListener, View.OnClickListener {
+class BookFragment : Fragment(), View.OnFocusChangeListener{
 
     private lateinit var bindView: FragmentBookBinding
     private val viewModel: BookViewModel by viewModels()
@@ -50,7 +50,9 @@ class BookFragment : Fragment(), View.OnFocusChangeListener, View.OnClickListene
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         bindView.navigationSettings.onFocusChangeListener = this
-        bindView.navigationSettings.setOnClickListener(this)
+        bindView.navigationSettings.setOnClickListener {
+            findNavController().navigate(R.id.action_bookFragment_to_settingsFragment)
+        }
         mainViewModel.hasNewApk.observe(viewLifecycleOwner) {
             bindView.navigationSettings.text = if (it) { "设置(发现新版本)" } else { "设置" }
         }
@@ -64,24 +66,13 @@ class BookFragment : Fragment(), View.OnFocusChangeListener, View.OnClickListene
         }
 
         mainViewModel.bluetoothState.observe(viewLifecycleOwner) {
-            when (it) {
-                STATE_INIT -> {
-                    bindView.navigationAnimation.isSelected = false
-                    bindView.navigationAnimation.isActivated = false
-                }
-                STATE_WAITING -> {
-                    bindView.navigationAnimation.isSelected = false
-                    bindView.navigationAnimation.isActivated = true
-                }
-                STATE_CONNECTED -> {
-                    bindView.navigationAnimation.isSelected = true
-                    bindView.navigationAnimation.isActivated = true
-                    Navigation.findNavController(bindView.root).navigate(R.id.action_to_activityFrame)
-                }
-                STATE_NONE -> {
-                    bindView.navigationAnimation.isSelected = false
-                    bindView.navigationAnimation.isActivated = false
-                }
+            bindView.navigationAnimation.isActivated = when (it) {
+                STATE_WAITING, STATE_CONNECTED -> true
+                else -> false
+            }
+            bindView.navigationAnimation.isSelected = when (it) {
+                STATE_CONNECTED -> true.also { Navigation.findNavController(bindView.root).navigate(R.id.action_to_activityFrame) }
+                else -> false
             }
         }
     }
@@ -97,14 +88,7 @@ class BookFragment : Fragment(), View.OnFocusChangeListener, View.OnClickListene
         }
     }
 
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.navigation_settings -> findNavController().navigate(R.id.action_bookFragment_to_settingsFragment)
-        }
-    }
-
     private fun activateBooks() {
-
         LicencePopupWindow(requireContext()).apply {
             onActivateClickListener = { data: String? ->
                 val hud = KProgressHUD.create(requireContext(), KProgressHUD.Style.SPIN_INDETERMINATE).setLabel("正在验证中").setCancellable(false).setAutoDismiss(true).setAnimationSpeed(2).show()
@@ -123,10 +107,7 @@ class BookFragment : Fragment(), View.OnFocusChangeListener, View.OnClickListene
                     }
                 }
             }
-        }.also {
-            it.showPopupWindow()
-        }
-
+        }.showPopupWindow()
     }
 
 }

@@ -33,10 +33,7 @@ class StoryErrorScene : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         bindView.errorText.text = data?.errorText
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         Music.stopBgMusic()
         Music.playAssetsAudio(data?.errorMusic)
     }

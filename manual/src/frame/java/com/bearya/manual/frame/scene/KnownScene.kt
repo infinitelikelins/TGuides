@@ -36,10 +36,7 @@ class KnownScene : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Glide.with(this).load("patriotism/$knownName.webp".assetsPath()).into(bindView.knownIntro)
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         Music.playAssetsAudio("patriotism/$knownName.mp3")
     }
 

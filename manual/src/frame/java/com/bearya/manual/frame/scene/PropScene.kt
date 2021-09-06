@@ -35,10 +35,7 @@ class PropScene : Fragment() {
         bindView.propFrame.mGapTime = data?.gapTime
         bindView.propFrame.mBitmapResourceIds = data?.images
         bindView.propFrame.mIsRepeat = false
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         bindView.propFrame.start()
         Music.stopBgMusic()
         Music.playAssetsAudio(data?.music)
