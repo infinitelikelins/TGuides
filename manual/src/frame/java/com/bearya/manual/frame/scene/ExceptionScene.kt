@@ -28,6 +28,7 @@ class ExceptionScene : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         exceptionState = requireArguments().getSerializable("data") as? ExceptionFrame?
+        Music.stopBgMusic()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -48,7 +49,6 @@ class ExceptionScene : Fragment() {
             }
         }
 
-        Music.stopBgMusic()
         Music.playAssetsAudio(exceptionState?.music) {
             Music.playAssetsBgMusic("music/game_fail.mp3")
         }
@@ -59,7 +59,6 @@ class ExceptionScene : Fragment() {
         super.onDestroyView()
         lifecycleScope.cancel()
         Music.stopBgMusic()
-        Music.stopMusic()
         bindView.unbind()
     }
 

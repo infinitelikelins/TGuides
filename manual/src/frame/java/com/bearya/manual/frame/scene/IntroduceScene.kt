@@ -24,6 +24,7 @@ class IntroduceScene : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         data = requireArguments().getSerializable("data") as IntroduceFrame
+        Music.stopBgMusic()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -38,7 +39,7 @@ class IntroduceScene : Fragment() {
         bindView.introduceFrame.mGapTime = data?.gapTime
 
         bindView.introduceFrame.start()
-        Music.stopBgMusic()
+
         Music.playAssetsAudio(data?.music)
     }
 

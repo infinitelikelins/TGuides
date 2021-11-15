@@ -26,7 +26,6 @@ class KnownScene : Fragment() {
         super.onCreate(savedInstanceState)
         knownName = requireArguments().getString("knownName", "chang5_1")
         Music.stopBgMusic()
-        Music.stopMusic()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -36,13 +35,7 @@ class KnownScene : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Glide.with(this).load("patriotism/$knownName.webp".assetsPath()).into(bindView.knownIntro)
-
         Music.playAssetsAudio("patriotism/$knownName.mp3")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Music.stopMusic()
     }
 
 }

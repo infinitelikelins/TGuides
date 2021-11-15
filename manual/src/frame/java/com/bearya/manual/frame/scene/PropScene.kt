@@ -24,6 +24,7 @@ class PropScene : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         data = requireArguments().getSerializable("data") as? PropFrame?
+        Music.stopBgMusic()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -37,7 +38,6 @@ class PropScene : Fragment() {
         bindView.propFrame.mIsRepeat = false
 
         bindView.propFrame.start()
-        Music.stopBgMusic()
         Music.playAssetsAudio(data?.music)
     }
 

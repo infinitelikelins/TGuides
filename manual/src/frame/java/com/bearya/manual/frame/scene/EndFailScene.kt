@@ -23,7 +23,6 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import com.bearya.manual.R
 import com.bearya.manual.databinding.SceneEndFailBinding
 import com.bearya.manual.frame.EndFailFrame
@@ -48,6 +47,7 @@ class EndFailScene : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         data = requireArguments().getSerializable("data") as? EndFailFrame?
+        Music.stopBgMusic()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -62,31 +62,25 @@ class EndFailScene : Fragment() {
             receive(it)
         }
 
-        lifecycleScope.launchWhenResumed {
+        bindView.frameSurface.mBitmapResourceIds = data?.images
+        bindView.frameSurface.mIsRepeat = false
+        bindView.frameSurface.mGapTime = data?.gapTime
 
-            bindView.frameSurface.mBitmapResourceIds = data?.images
-            bindView.frameSurface.mIsRepeat = false
-            bindView.frameSurface.mGapTime = data?.gapTime
+        bindView.frameSurface.start()
 
-            bindView.frameSurface.start()
+        createEquipmentFrameAnim(requireContext(), bindView.equipment1, data?.prop1).start()
+        createEquipmentFrameAnim(requireContext(), bindView.equipment2, data?.prop2).start()
+        createEquipmentFrameAnim(requireContext(), bindView.equipment3, data?.prop3).start()
 
-            createEquipmentFrameAnim(requireContext(), bindView.equipment1, data?.prop1).start()
-            createEquipmentFrameAnim(requireContext(), bindView.equipment2, data?.prop2).start()
-            createEquipmentFrameAnim(requireContext(), bindView.equipment3, data?.prop3).start()
-
-            withGone(bindView.background, bindView.icLight)
-            Music.stopBgMusic()
-            Music.playAssetsAudio(data?.music) {
-                withShow(bindView.background, bindView.icLight)
-                Music.playAssetsAudio("music/gold_effect.mp3") {
-                    showCount()
-                }
+        withGone(bindView.background, bindView.icLight)
+        Music.playAssetsAudio(data?.music) {
+            withShow(bindView.background, bindView.icLight)
+            Music.playAssetsAudio("music/gold_effect.mp3") {
+                showCount()
             }
-
         }
 
     }
-
 
     private fun showCount() {
         val constraintLayout: ConstraintLayout = bindView.popupResultSuccessView

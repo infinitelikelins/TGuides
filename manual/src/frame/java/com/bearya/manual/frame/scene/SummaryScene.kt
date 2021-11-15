@@ -48,6 +48,7 @@ class SummaryScene : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         data = requireArguments().getSerializable("data") as? SummaryFrame?
+        Music.stopBgMusic()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -65,7 +66,6 @@ class SummaryScene : Fragment() {
             receive(it)
         }
 
-        Music.stopBgMusic()
         withGone(bindView.icLight, bindView.resultCount)
         bindView.frameSurface.start()
         Music.playAssetsAudio(data?.music) {
@@ -80,7 +80,6 @@ class SummaryScene : Fragment() {
     override fun onStop() {
         super.onStop()
         bindView.frameSurface.stop()
-        Music.stopMusic()
     }
 
     private fun receive(command: String?) {

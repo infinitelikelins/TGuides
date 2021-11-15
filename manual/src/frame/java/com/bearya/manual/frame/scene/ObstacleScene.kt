@@ -24,6 +24,7 @@ class ObstacleScene : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         data = requireArguments().getSerializable("data") as? ObstacleFrame?
+        Music.stopBgMusic()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -37,14 +38,11 @@ class ObstacleScene : Fragment() {
         bindView.obstacleFrame.mBitmapResourceIds = data?.images
 
         bindView.obstacleFrame.start()
-        Music.stopBgMusic()
         Music.playAssetsAudio(data?.music)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Music.stopBgMusic()
-        Music.stopMusic()
         bindView.obstacleFrame.stop()
         bindView.unbind()
     }

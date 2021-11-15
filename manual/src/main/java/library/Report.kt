@@ -6,4 +6,4 @@ import kotlin.concurrent.thread
 /**
  * 错误日志
  */
-fun error(message: String?) = thread { CrashReport.postCatchedException(Exception(message ?: "捕捉到异常")) }
+fun error(message: String?) = CrashReport.postCatchedException(Exception(message ?: "捕捉到异常"))

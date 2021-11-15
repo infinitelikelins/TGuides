@@ -24,6 +24,7 @@ class StoryErrorScene : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         data = requireArguments().getSerializable("data") as? ErrorTextFrame?
+        Music.stopBgMusic()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -33,8 +34,6 @@ class StoryErrorScene : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         bindView.errorText.text = data?.errorText
-
-        Music.stopBgMusic()
         Music.playAssetsAudio(data?.errorMusic)
     }
 

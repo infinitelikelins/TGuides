@@ -24,6 +24,7 @@ class StartScene : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         data = requireArguments().getSerializable("data") as? StartFrame?
+        Music.stopBgMusic()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -34,7 +35,6 @@ class StartScene : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         data?.image?.apply { bindView.startImage.setImageResource(this) }
 
-        Music.stopBgMusic()
         Music.playAssetsAudio(data?.music) {
             Music.playAssetsBgMusic(data?.bgm)
         }

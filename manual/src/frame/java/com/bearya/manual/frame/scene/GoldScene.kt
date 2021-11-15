@@ -25,7 +25,6 @@ class GoldScene : Fragment() {
         super.onCreate(savedInstanceState)
         goldCount = requireArguments().getString("goldCount", "1")
         Music.stopBgMusic()
-        Music.stopMusic()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -46,11 +45,6 @@ class GoldScene : Fragment() {
             "music/pick_up_coin2.mp3"
         ))
 
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Music.stopMusic()
     }
 
     override fun onDestroyView() {

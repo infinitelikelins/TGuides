@@ -18,7 +18,6 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import com.bearya.manual.R
 import com.bearya.manual.databinding.SceneEndBinding
 import com.bearya.manual.frame.EndFrame
@@ -44,6 +43,7 @@ class EndScene : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         data = requireArguments().getSerializable("data") as? EndFrame?
+        Music.stopBgMusic()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -57,23 +57,19 @@ class EndScene : Fragment() {
             receive(it)
         }
 
-        lifecycleScope.launchWhenResumed {
+        bindView.endFrame.mIsRepeat = false
+        bindView.endFrame.mBitmapResourceIds = data?.images
+        bindView.endFrame.mGapTime = data?.gapTime
 
-            bindView.endFrame.mIsRepeat = false
-            bindView.endFrame.mBitmapResourceIds = data?.images
-            bindView.endFrame.mGapTime = data?.gapTime
+        bindView.endFrame.start()
 
-            bindView.endFrame.start()
+        withGone(bindView.background, bindView.icLight)
 
-            withGone(bindView.background, bindView.icLight)
-            Music.stopBgMusic()
-            Music.playAssetsAudio(data?.music) {
-                withShow(bindView.background, bindView.icLight)
-                Music.playAssetsAudio("music/gold_effect.mp3") {
-                    showCount()
-                }
+        Music.playAssetsAudio(data?.music) {
+            withShow(bindView.background, bindView.icLight)
+            Music.playAssetsAudio("music/gold_effect.mp3") {
+                showCount()
             }
-
         }
 
     }

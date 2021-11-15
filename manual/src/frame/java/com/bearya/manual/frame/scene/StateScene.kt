@@ -24,6 +24,8 @@ class StateScene : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         data = requireArguments().get("data") as? StateFrame?
+        Music.stopMusic()
+        Music.stopBgMusic()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -33,8 +35,6 @@ class StateScene : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         data?.image?.apply { bindView.stateImage.setImageResource(this) }
-        Music.stopMusic()
-        Music.stopBgMusic()
     }
 
     override fun onDestroyView() {

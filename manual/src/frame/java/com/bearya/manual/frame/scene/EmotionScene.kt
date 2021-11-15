@@ -44,6 +44,7 @@ class EmotionScene : Fragment() {
         super.onDestroyView()
         bindView.lottieView.cancelAnimation()
         bindView.lottieView.setImageDrawable(null)
+        bindView.unbind()
     }
 
 }

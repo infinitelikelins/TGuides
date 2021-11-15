@@ -25,7 +25,6 @@ class FlagScene : Fragment() {
         super.onCreate(savedInstanceState)
         flagSound = requireArguments().getString("flagSound", "flag_effect_1")
         Music.stopBgMusic()
-        Music.stopMusic()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -40,11 +39,6 @@ class FlagScene : Fragment() {
 
         bindView.frameSurface.start()
         Music.playAssetsAudio("music/$flagSound.mp3")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Music.stopMusic()
     }
 
     override fun onDestroyView() {

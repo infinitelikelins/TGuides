@@ -22,6 +22,6 @@ class SectionViewModel(app: Application) : AndroidViewModel(app) {
         })
     }
 
-    val playIndex: MutableLiveData<Int> by lazy { MutableLiveData<Int>().apply { setData(0) } }
+    val playIndex: MutableLiveData<Int> by lazy { MutableLiveData<Int>().setData(0) }
 
 }
