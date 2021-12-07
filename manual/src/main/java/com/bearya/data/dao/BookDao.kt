@@ -11,7 +11,7 @@ interface BookDao {
     @Query("SELECT * FROM Book WHERE `enable` = 1")
     fun findBookByAll(): PagingSource<Int, Book>
 
-    @Query("UPDATE BOOK SET `lock` = 0 WHERE `lock` = 1")
+    @Query("UPDATE Book SET `lock` = 0 WHERE `lock` = 1")
     suspend fun releaseBooksLocks(): Int
 
 }
