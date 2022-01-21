@@ -16,7 +16,7 @@ import com.tencent.mmkv.MMKV
     entities = [
         Book::class,
         Chapter::class
-    ], version = 15, exportSchema = false
+    ], version = 16, exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
 
@@ -36,7 +36,7 @@ class DatabaseInitializer : Initializer<AppDatabase> {
             .createFromAsset("database/manual.db")
             .addMigrations(migrations_1_13, migrations_2_13, migrations_3_13, migrations_4_13, migrations_5_13)
             .addMigrations(migrations_6_13, migrations_7_13, migrations_8_13, migrations_9_13, migrations_10_13)
-            .addMigrations(migrations_11_13, migrations_12_13, migrations_13_14, migrations_14_15)
+            .addMigrations(migrations_11_13, migrations_12_13, migrations_13_14, migrations_14_15 , migrations_15_16)
             .build()
 
     override fun dependencies(): MutableList<Class<out Initializer<*>>> =

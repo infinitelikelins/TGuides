@@ -1,5 +1,6 @@
 package com.bearya.data.migrations
 
+import android.annotation.SuppressLint
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.tencent.mmkv.MMKV
@@ -82,6 +83,7 @@ val migrations_13_14 = object : Migration(13, 14) {
     }
 }
 
+@SuppressLint("Range")
 private fun migrationTo14(database: SupportSQLiteDatabase) {
     // 迁移之前的版本的锁定状态写入配置文件
     database.query("SELECT count(lock) AS lockStatus FROM Book WHERE lock = 1").run {
@@ -277,5 +279,83 @@ val migrations_14_15 = object : Migration(14, 15) {
         database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(146,'8.战胜黑暗使者(幼小衔接)',17,1)")
         database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(147,'9.梦幻舞会(幼小衔接)',17,1)")
         database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(148,'10.创想天地(幼小衔接)',17,1)")
+
+    }
+}
+
+val migrations_15_16 = object : Migration(15, 16) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        //  1 锁定 , 0 解锁
+        val lockStatus = if (MMKV.defaultMMKV().decodeBool("lockStatus", true)) 1 else 0
+
+        database.execSQL("UPDATE Book SET enable = 0 WHERE id = 7")
+        database.execSQL("UPDATE Book SET enable = 0 WHERE id = 8")
+        database.execSQL("UPDATE Book SET enable = 0 WHERE id = 9")
+        database.execSQL("UPDATE Book SET enable = 0 WHERE id = 10")
+        database.execSQL("UPDATE Book SET enable = 0 WHERE id = 11")
+        database.execSQL("UPDATE Book SET enable = 0 WHERE id = 12")
+
+        database.execSQL("INSERT OR REPLACE INTO Book VALUES(18,'幼儿一级(下)A','book/幼儿一级下A.webp',1,0)")
+        database.execSQL("INSERT OR REPLACE INTO Book VALUES(19,'幼儿一级(下)B','book/幼儿一级下B.webp',1,$lockStatus)")
+        database.execSQL("INSERT OR REPLACE INTO Book VALUES(20,'幼儿二级(下)A','book/幼儿二级下A.webp',1,0)")
+        database.execSQL("INSERT OR REPLACE INTO Book VALUES(21,'幼儿二级(下)B','book/幼儿二级下B.webp',1,$lockStatus)")
+        database.execSQL("INSERT OR REPLACE INTO Book VALUES(22,'幼儿三级(下)A','book/幼儿三级下A.webp',1,0)")
+        database.execSQL("INSERT OR REPLACE INTO Book VALUES(23,'幼儿三级(下)B','book/幼儿三级下B.webp',1,$lockStatus)")
+
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(149,'1.糖果小镇旅行记(幼儿一级下A)',18,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(150,'2.跳跳镇运动会(幼儿一级下A)',18,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(151,'3.嘻皮猴蛀牙了(幼儿一级下A)',18,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(152,'4.神秘的客人(幼儿一级下A)',18,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(153,'5.找彩虹(幼儿一级下A)',18,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(154,'6.环保小达人(幼儿一级下A)',18,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(155,'7.厉害的大喷嚏(幼儿一级下A)',18,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(156,'8.热心帮帮团(幼儿一级下A)',18,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(157,'9.暴风雨过后(幼儿一级下A)',18,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(158,'10.谁的羽毛？(幼儿一级下B)',19,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(159,'11.地铁路线图(幼儿一级下B)',19,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(160,'12.十步内的距离(幼儿一级下B)',19,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(161,'13.安全小卫士(幼儿一级下B)',19,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(162,'14.生日庆祝会(幼儿一级下B)',19,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(163,'15.寻找红气球(幼儿一级下B)',19,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(164,'16.草丛里的星星(幼儿一级下B)',19,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(165,'17.小乌龟找水源(幼儿一级下B)',19,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(166,'18.一起玩捉迷藏(幼儿一级下B)',19,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(167,'1.英国之旅(幼儿二级下A)',20,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(168,'2.俄罗斯之旅(幼儿二级下A)',20,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(169,'3.埃及之旅(幼儿二级下A)',20,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(170,'4.法国之旅(幼儿二级下A)',20,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(171,'5.意大利之旅(幼儿二级下A)',20,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(172,'6.德国之旅(幼儿二级下A)',20,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(173,'7.泰国之旅(幼儿二级下A)',20,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(174,'8.印度之旅(幼儿二级下A)',20,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(175,'9.西班牙之旅(幼儿二级下A)',20,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(176,'10.南非之旅(幼儿二级下B)',21,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(177,'11.新加坡之旅(幼儿二级下B)',21,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(178,'12.希腊之旅(幼儿二级下B)',21,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(179,'13.澳大利亚之旅(幼儿二级下B)',21,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(180,'14.新西兰之旅(幼儿二级下B)',21,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(181,'15.美国之旅(幼儿二级下B)',21,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(182,'16.加拿大之旅(幼儿二级下B)',21,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(183,'17.墨西哥之旅(幼儿二级下B)',21,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(184,'18.巴西之旅(幼儿二级下B)',21,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(185,'1.一封求救信(幼儿三级下A)',22,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(186,'2.独闯荆棘林(幼儿三级下A)',22,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(187,'3.神秘岛探险(幼儿三级下A)',22,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(188,'4.拯救原始部落(幼儿三级下A)',22,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(189,'5.穿越极限之地(幼儿三级下A)',22,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(190,'6.寻找失踪的装备(幼儿三级下A)',22,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(191,'7.对抗巨龙(幼儿三级下A)',22,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(192,'8.对称乐园奇遇记(幼儿三级下A)',22,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(193,'9.神秘的旋转王国(幼儿三级下A)',22,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(194,'10.突现大飞龙(幼儿三级下B)',23,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(195,'11.小贝大变身(幼儿三级下B)',23,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(196,'12.迷宫转转转(幼儿三级下B)',23,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(197,'13.寻找蓝色药水(幼儿三级下B)',23,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(198,'14.决战喷嚏龙(幼儿三级下B)',23,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(199,'15.好饿的小蛇(幼儿三级下B)',23,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(200,'16.变色龙的奇妙之旅(幼儿三级下B)',23,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(201,'17.小壁虎的烦恼(幼儿三级下B)',23,1)")
+        database.execSQL("INSERT OR REPLACE INTO Chapter VALUES(202,'18.这是苹果吗？(幼儿三级下B)',23,1)")
+
     }
 }

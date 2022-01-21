@@ -122,7 +122,7 @@ android {
 
         // 民办园课件版本 ACE
         core {
-            versionName "2.5.1"
+            versionName "2.5.3"
             manifestPlaceholders = [appName: "贝芽幼儿编程教学支持(上)"]
             sourceSets.main.manifest.srcFile '/src/core/AndroidManifest.xml'
             buildConfigField "int", "APP_TYPE", "10"
