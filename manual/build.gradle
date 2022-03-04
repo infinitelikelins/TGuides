@@ -34,9 +34,6 @@ android {
 
     flavorDimensions "default"
 
-    aaptOptions {
-        noCompress ".webp"  //表示不让aapt压缩的文件后缀
-    }
 
     sourceSets {
 
@@ -223,6 +220,9 @@ android {
     kotlinOptions {
         jvmTarget = 1.8
         freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
+    }
+    androidResources {
+        noCompress '.webp'
     }
 
 }
